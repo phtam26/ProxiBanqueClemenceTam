@@ -9,18 +9,27 @@ import java.util.List;
  */
 public abstract class Client {
 	
+	private int idClient;
 	private String nomClient;
 	private String prenomClient;
 	private String adresseClient;
-	private int codePostalClient;
-	private String villeClient;
-	private String telephoneClient;
-	private String mail;
+	private int codePostal;
+	private String ville;
+	private String telClient;
+	private String emailClient;
 	private Conseiller monConseiller;
 	private List<Compte> comptes = new ArrayList<Compte>();
 	
 	public Client() {
 		super();
+	}
+
+	public int getIdClient() {
+		return idClient;
+	}
+
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
 	}
 
 	public String getNomClient() {
@@ -47,36 +56,36 @@ public abstract class Client {
 		this.adresseClient = adresseClient;
 	}
 
-	public int getCodePostalClient() {
-		return codePostalClient;
+	public int getCodePostal() {
+		return codePostal;
 	}
 
-	public void setCodePostalClient(int codePostalClient) {
-		this.codePostalClient = codePostalClient;
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
 	}
 
-	public String getVilleClient() {
-		return villeClient;
+	public String getVille() {
+		return ville;
 	}
 
-	public void setVilleClient(String villeClient) {
-		this.villeClient = villeClient;
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
-	public String getTelephoneClient() {
-		return telephoneClient;
+	public String getTelClient() {
+		return telClient;
 	}
 
-	public void setTelephoneClient(String telephoneClient) {
-		this.telephoneClient = telephoneClient;
+	public void setTelClient(String telClient) {
+		this.telClient = telClient;
 	}
 
-	public String getMail() {
-		return mail;
+	public String getEmailClient() {
+		return emailClient;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmailClient(String emailClient) {
+		this.emailClient = emailClient;
 	}
 
 	public List<Compte> getComptes() {
@@ -102,12 +111,9 @@ public abstract class Client {
 
 	@Override
 	public String toString() {
-		return "Client [nomClient=" + nomClient + ", prenomClient=" + prenomClient + ", adresseClient=" + adresseClient
-				+ ", codePostalClient=" + codePostalClient + ", villeClient=" + villeClient + ", telephoneClient="
-				+ telephoneClient + ", mail=" + mail + ", monConseiller=" + monConseiller + ", comptes=" + comptes
-				+ "]";
+		return "Client [idClient=" + idClient + ", nomClient=" + nomClient + ", prenomClient=" + prenomClient
+				+ ", adresseClient=" + adresseClient + ", codePostal=" + codePostal + ", ville=" + ville
+				+ ", telClient=" + telClient + ", emailClient=" + emailClient + ", monConseiller=" + monConseiller
+				+ ", comptes=" + comptes + "]";
 	}
-	
-	
-
 }

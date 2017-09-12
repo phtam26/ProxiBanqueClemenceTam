@@ -8,8 +8,8 @@ import java.util.Date;
  */
 public abstract class Compte {
 	
-	private int numCompte;
-	private float solde;
+	private int idCompte;
+	private double solde;
 	private Date dateOuverture;
 	private Client monProprietaire;
 	private Carte maCarte;
@@ -17,20 +17,20 @@ public abstract class Compte {
 	public Compte() {
 		super();
 	}
-
-	public int getNumCompte() {
-		return numCompte;
+	
+	public int getIdCompte() {
+		return idCompte;
 	}
 
-	public void setNumCompte(int numCompte) {
-		this.numCompte = numCompte;
+	public void setIdCompte(int idCompte) {
+		this.idCompte = idCompte;
 	}
 
-	public float getSolde() {
+	public double getSolde() {
 		return solde;
 	}
 
-	public void setSolde(float solde) {
+	public void setSolde(double solde) {
 		this.solde = solde;
 	}
 
@@ -60,12 +60,8 @@ public abstract class Compte {
 
 	@Override
 	public String toString() {
-		return "Compte [numCompte=" + numCompte + ", solde=" + solde + ", dateOuverture=" + dateOuverture
+		return "Compte [idCompte=" + idCompte + ", solde=" + solde + ", dateOuverture=" + dateOuverture
 				+ ", monProprietaire=" + monProprietaire + ", maCarte=" + maCarte + "]";
 	}
-	
-	
-	
-	
-	
+
 }

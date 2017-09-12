@@ -1,5 +1,7 @@
 package monappproxibanque.dao;
 
+import java.util.List;
+
 import monappproxibanque.metier.Agence;
 import monappproxibanque.metier.Carte;
 import monappproxibanque.metier.Client;
@@ -14,38 +16,58 @@ import monappproxibanque.metier.Employe;
  */
 
 public interface Idao {
-
-//	public void seConnecter(String loginEmploye, String passwordEmploye);
 	
 	public void creerEmploye(Employe epl);
-	public void lireEmploye(Employe epl);
+	public Employe lireEmploye(int idEmploye);
 	public void modifierEmploye(Employe epl);
-	public void supprimerEmploye(Employe epl);	
+	public void supprimerEmploye(int idEmploye);
+	public List<Employe> findAllEmployes();
 	
 	public void creerClient(Client clt);
-	public void lireClient(Client clt);
+	public Client lireClient(int idClient);
 	public void modifierClient(Client clt);
-	public void supprimerClient(Client clt);	
+	public void supprimerClient(int idClient);	
+	public List<Client> findAllClients();
 	
 	public void creerCompte(Compte cpt);
-	public void lireCompte(Compte cpt);
+	public Compte lireCompte(int idCompte);
 	public void modifierCompte(Compte cpt);
-	public void supprimerCompte(Compte cpt);
+	public void supprimerCompte(int idCompte);
+	public List<Compte> findAllComptes();
 	
 	public void creerCarte(Carte crt);
-	public void lireCarte(Carte crt);
+	public Carte lireCarte(int idCarte);
 	public void modifierCarte(Carte crt);
-	public void supprimerCarte(Carte crt);
+	public void supprimerCarte(int idCarte);
+	public List<Carte> findAllCartes();
+
+	public Agence getAgence(int idAgence);
+	public Employe getEmploye(int idEmploye);
+	public Client getClient(int idClient);
+	public Compte getCompte(int idCompte);
+	public Carte getCarte(int idCarte);
+	public void attribuerEmployeAgence(Employe epl, Agence a);
+	public List<Employe> employesDeLAgence (int idAgence);
+	public void attribuerClientEmploye(Client clt, Employe epl);
+	public List<Client> clientsDuConseiller(int idEmploye);
+	public void attribuerCompteClient(Compte cpt, Client clt);
+	public List<Compte> comptesDuClient(int idClient);
+	public void attribuerCarteCompte(Carte crt, Compte cpt); // une carte pour un compte
 	
-//	public void faireVirement(Compte cpt1, Compte cpt2);
-//	public void activerCarte(Carte crt);
-//	public void desactiverCarte(Carte crt);
-//	public void simulerCredit();
-//	public void gererPatrimoine();
-//	
-//	public void gererConseiller(Conseiller csl);
-//	public void gererAgence (Agence a);
-//	
-//	public void auditer(Compte cpt);
+	
+// pas encore developper les methodes ci-dessous, a part les sysout
+	
+	public void seConnecter(String loginEmploye, String passwordEmploye);
+	
+	public void faireVirement(Compte cpt1, Compte cpt2);
+	public void activerCarte(Carte crt);
+	public void desactiverCarte(Carte crt);
+	public void simulerCredit();
+	public void gererPatrimoine();
+	
+	public void gererConseiller(Conseiller csl);
+	public void gererAgence (Agence a);
+	
+	public void auditer(Compte cpt);
 
 }

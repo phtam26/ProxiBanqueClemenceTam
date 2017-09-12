@@ -12,9 +12,9 @@ public class Agence {
 
 	private int idAgence;
 	private String nomAgence;
-	private Date dateCreation;
 	private String adresseAgence;
 	private int codePostalAgence;
+	private Date dateCreation;
 	private List<Employe> employes = new ArrayList<Employe>();
 
 	public Agence() {

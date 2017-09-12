@@ -8,10 +8,9 @@ import java.util.Date;
  */
 public abstract class Carte {
 
-	private String numCarte;
-	private String titulaire;
+	private int idCarte;
 	private Date dateExpiration;
-	private String cryptogramme;
+	private int cryptogramme;
 	private float plafondPaiement;
 	private float plafondRetrait;
 	private Compte monCompte;
@@ -20,20 +19,12 @@ public abstract class Carte {
 		super();
 	}
 
-	public String getNumCarte() {
-		return numCarte;
+	public int getIdCarte() {
+		return idCarte;
 	}
 
-	public void setNumCarte(String numCarte) {
-		this.numCarte = numCarte;
-	}
-
-	public String getTitulaire() {
-		return titulaire;
-	}
-
-	public void setTitulaire(String titulaire) {
-		this.titulaire = titulaire;
+	public void setIdCarte(int idCarte) {
+		this.idCarte = idCarte;
 	}
 
 	public Date getDateExpiration() {
@@ -44,11 +35,11 @@ public abstract class Carte {
 		this.dateExpiration = dateExpiration;
 	}
 
-	public String getCryptogramme() {
+	public int getCryptogramme() {
 		return cryptogramme;
 	}
 
-	public void setCryptogramme(String cryptogramme) {
+	public void setCryptogramme(int cryptogramme) {
 		this.cryptogramme = cryptogramme;
 	}
 
@@ -75,14 +66,11 @@ public abstract class Carte {
 	public void setMonCompte(Compte monCompte) {
 		this.monCompte = monCompte;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Carte [numCarte=" + numCarte + ", titulaire=" + titulaire + ", dateExpiration=" + dateExpiration
-				+ ", cryptogramme=" + cryptogramme + ", plafondPaiement=" + plafondPaiement + ", plafondRetrait="
-				+ plafondRetrait + ", monCompte=" + monCompte + "]";
-	}
-	
-	
-	
+		return "Carte [idCarte=" + idCarte + ", dateExpiration=" + dateExpiration + ", cryptogramme=" + cryptogramme
+				+ ", plafondPaiement=" + plafondPaiement + ", plafondRetrait=" + plafondRetrait + ", monCompte="
+				+ monCompte + "]";
+	}	
 }

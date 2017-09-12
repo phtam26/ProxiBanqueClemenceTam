@@ -10,8 +10,9 @@ public abstract class Employe {
 	private String nomEmploye;
 	private String prenomEmploye;
 	private String emailEmploye;
-	private String loginEmploye;
-	private String passwordEmploye;
+	private String telEmploye;
+	private String login;
+	private String motDePasse;
 	private Agence monAgence;
 
 	public Employe() {
@@ -49,22 +50,16 @@ public abstract class Employe {
 	public void setEmailEmploye(String emailEmploye) {
 		this.emailEmploye = emailEmploye;
 	}
-
-	public String getLoginEmploye() {
-		return loginEmploye;
+	
+	public String getTelEmploye() {
+		return telEmploye;
 	}
 
-	public void setLoginEmploye(String loginEmploye) {
-		this.loginEmploye = loginEmploye;
+	public void setTelEmploye(String telEmploye) {
+		this.telEmploye = telEmploye;
 	}
+	
 
-	public String getPasswordEmploye() {
-		return passwordEmploye;
-	}
-
-	public void setPasswordEmploye(String passwordEmploye) {
-		this.passwordEmploye = passwordEmploye;
-	}
 
 	public Agence getMonAgence() {
 		return monAgence;
@@ -74,13 +69,26 @@ public abstract class Employe {
 		this.monAgence = monAgence;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
 	@Override
 	public String toString() {
 		return "Employe [idEmploye=" + idEmploye + ", nomEmploye=" + nomEmploye + ", prenomEmploye=" + prenomEmploye
-				+ ", emailEmploye=" + emailEmploye + ", loginEmploye=" + loginEmploye + ", passwordEmploye="
-				+ passwordEmploye + ", monAgence=" + monAgence + "]";
+				+ ", emailEmploye=" + emailEmploye + ", telEmploye=" + telEmploye + ", login=" + login + ", motDePasse="
+				+ motDePasse + ", monAgence=" + monAgence + "]";
 	}
-	
-	
-	
 }
