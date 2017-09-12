@@ -5,14 +5,12 @@ import monappproxibanque.metier.Employe;
 
 public interface IGerant extends IConseiller {
 
-	public void supressionAgence(Agence a);
-	public void miseAjourAgence(Agence a);
-	public void LireAgence(Agence a);
 	
-
-	public void suppressionEmploye(Employe e);//doit entrainer supressioncompte et carte
-	public void miseAjourEmploye(Employe e);
-	public void LireEmploye(Employe e);
+	
+	public void creerEmploye(Employe epl);
+	public void supprimerEmploye(Employe epl);//doit entrainer supressioncompte et carte
+	public void modifierEmploye(Employe epl);
+	public void LireEmploye(Employe epl);
 	
 	
 }
