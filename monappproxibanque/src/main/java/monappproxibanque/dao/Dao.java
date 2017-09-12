@@ -8,9 +8,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.huios.personnevoiture.metier.Personne;
-import com.huios.personnevoiture.metier.Voiture;
-
 import monappproxibanque.metier.Agence;
 import monappproxibanque.metier.Carte;
 import monappproxibanque.metier.CarteVisaElectron;
