@@ -1,10 +1,7 @@
 package monappproxibanque.service;
 
-import com.huios.architecture.metier.Agence;
-import com.huios.architecture.metier.Carte;
-import com.huios.architecture.metier.Client;
-import com.huios.architecture.metier.Compte;
-import com.huios.architecture.metier.Employe;
+import monappproxibanque.metier.Agence;
+import monappproxibanque.metier.Employe;
 
 public interface IGerant extends IConseiller {
 

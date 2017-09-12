@@ -8,7 +8,7 @@ import java.util.List;
  * @author Tam
  *
  */
-public class Agence { // classe agence
+public class Agence {
 
 	private int idAgence;
 	private String nomAgence;
