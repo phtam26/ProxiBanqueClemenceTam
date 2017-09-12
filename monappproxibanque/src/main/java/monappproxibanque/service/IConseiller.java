@@ -4,6 +4,8 @@ package monappproxibanque.service;
 public interface IConseiller {
 	
 	//public void seConnecter(String login, String mdp);
+	
+	//client
 
 	public void creerClient(Client clt);
 	public void supprimerClient(Client clt);//doit entrainer supressioncompte et carte
