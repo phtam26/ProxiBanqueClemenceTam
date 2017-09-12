@@ -1,5 +1,9 @@
 package monappproxibanque.service;
 
+import monappproxibanque.metier.Carte;
+import monappproxibanque.metier.Client;
+import monappproxibanque.metier.Compte;
+import monappproxibanque.metier.Employe;
 
 public interface IConseiller {
 	
