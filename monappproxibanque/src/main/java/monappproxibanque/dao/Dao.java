@@ -33,7 +33,7 @@ public class Dao implements Idao {
  * CRUD Employe	
  */
 	@Override
-	public void creerEmploye(Employe epl) {
+	public void creerConseiller(Conseiller csl) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -43,17 +43,18 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO employe(nomEmploye, prenomEmploye, emailEmploye, telEmploye, login, motDePasse) +"
-								+ " VALUES (?, ?, ?, ?, ?, ?)";
+			String requete = "INSERT INTO employe(conseillerID, nomEmploye, prenomEmploye, emailEmploye, telEmploye, login, motDePasse) +"
+								+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setString(1, epl.getNomEmploye()); 
-			ps.setString(2, epl.getPrenomEmploye());
-			ps.setString(3, epl.getEmailEmploye());
-			ps.setString(4, epl.getTelEmploye());
-			ps.setString(5, epl.getLogin());
-			ps.setString(6, epl.getMotDePasse());
+			ps.setString(1, csl.getConseillerID);
+			ps.setString(1, csl.getNomEmploye()); 
+			ps.setString(2, csl.getPrenomEmploye());
+			ps.setString(3, csl.getEmailEmploye());
+			ps.setString(4, csl.getTelEmploye());
+			ps.setString(5, csl.getLogin());
+			ps.setString(6, csl.getMotDePasse());
 			
 			ps.executeUpdate();
 			
