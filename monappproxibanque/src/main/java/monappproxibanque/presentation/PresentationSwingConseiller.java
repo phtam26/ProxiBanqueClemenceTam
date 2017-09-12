@@ -2,6 +2,6 @@ package monappproxibanque.presentation;
 
 import javax.swing.JFrame;
 
-public class PresentationSwingCompte extends JFrame{
+public class PresentationSwingConseiller extends JFrame{
 
 }

@@ -18,7 +18,7 @@ import monappproxibanque.service.IConseiller;
 import monappproxibanque.service.ServiceImpl;
 
 
-public class PresentationSwingParticulier extends JFrame {
+public class PresentationSwingEntreprise extends JFrame {
 	private JPanel panel1 = new JPanel();
 	private JPanel panel2 = new JPanel();
 	private JPanel panel3 = new JPanel();
@@ -79,8 +79,8 @@ public class PresentationSwingParticulier extends JFrame {
 	IConseiller ic=new ServiceImpl();
 	
 	//constructeur
-	public PresentationSwingParticulier() {
-	setTitle("Gestion des Clients Particuliers");
+	public PresentationSwingEntreprise() {
+	setTitle("Gestion des Clients Entreprise");
 	//la taille de la fenetre
 	setSize(500,300);
 	//précise la taille est non modifiable
@@ -97,7 +97,7 @@ public class PresentationSwingParticulier extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			ClientParticulier p = new ClientParticulier();
+			ClientEntreprise p = new ClientEntreprise();
 			p.setNomClient(zonesaisienom.getText());
 			zonesaisienom.setText("");
 			p.setPrenomClient(zonesaisieprenom.getText());
@@ -105,7 +105,7 @@ public class PresentationSwingParticulier extends JFrame {
 			p.setMail(Integer.parseInt(zonesaisieemail.getText())); 
 			zonesaisieemail.setText("");
 			//
-			ic.creerClientParticulier(p);
+			ic.creerClientEntreprise(p);
 		
 		}});
 	
@@ -115,10 +115,10 @@ public class PresentationSwingParticulier extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			ClientParticulier p = new ClientParticulier();
+			ClientEntreprise p = new ClientEntreprise();
 			p.setId(zonesaisieid.getText());
 			
-			ic.lireClientParticulier(p);
+			ic.lireClientEntreprise(p);
 		
 		}});
 	
@@ -128,7 +128,7 @@ public class PresentationSwingParticulier extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			ClientParticulier p = new ClientParticulier();
+			ClientEntreprise p = new ClientEntreprise();
 			int id;
 			String nom;
 			String prenom;
@@ -140,7 +140,7 @@ public class PresentationSwingParticulier extends JFrame {
 			p.setPrenomClient(zonesaisieprenom3.getText());
 			zonesaisieprenom3.setText("");
 			
-			ic.modifierClientParticulier(p);
+			ic.modifierClientEntreprise(p);
 		
 		}});
 	
@@ -153,7 +153,7 @@ public class PresentationSwingParticulier extends JFrame {
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
 			
-			ic.supprimerClientParticulier(id);
+			ic.supprimerClientEntreprise(id);
 		
 		}});
 	
