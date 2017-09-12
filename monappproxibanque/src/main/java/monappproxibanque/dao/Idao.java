@@ -22,7 +22,7 @@ import monappproxibanque.metier.Gerant;
  *
  */
 
-public interface Idao {
+public interface Idao { // interface
 	
 	public void creerConseiller(Conseiller csl);
 	public void creerGerant(Gerant g);
