@@ -13,7 +13,7 @@ import monappproxibanque.metier.Employe;
 
 public interface IConseiller {
 	
-	public boolean seConnecter(String loginEmploye, String motDePasse);
+	public String seConnecter(String loginEmploye, String motDePasse);
 	
 	//client
 
