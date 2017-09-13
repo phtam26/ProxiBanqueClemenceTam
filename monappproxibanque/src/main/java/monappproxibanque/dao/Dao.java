@@ -29,6 +29,8 @@ import monappproxibanque.metier.Gerant;
  */
 public class Dao implements Idao {
 	
+	// creer a changer
+	
 /**
  * CRUD Employe	
  */
