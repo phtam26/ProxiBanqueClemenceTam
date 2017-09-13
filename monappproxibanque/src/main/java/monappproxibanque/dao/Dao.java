@@ -32,10 +32,9 @@ public class Dao implements Idao {
 	 * L'utilisateur doit s'authentifier avant de pouvoir utiliser d'autres fonctionnalites.
 	 */
 		@Override
-		public boolean seConnecter(String loginEmploye, String motDePasse) {
-			
-			boolean rep = false;
-			
+		public String seConnecter(String loginEmploye, String motDePasse) {
+
+			String combosql = null;
 			try {
 
 				Class.forName("com.mysql.jdbc.Driver");
@@ -46,16 +45,17 @@ public class Dao implements Idao {
 
 				Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-				String requete = "SELECT motDePasse FROM employe WHERE loginEmploye = ?";
+				String requete = "SELECT loginEmploye, motDePasse FROM employe WHERE loginEmploye = ? AND motDePasse = ?";
 				PreparedStatement ps = conn.prepareStatement(requete);	
 				ps.setString(1, loginEmploye);
+				ps.setString(2, motDePasse);
 				
 				ResultSet rs = ps.executeQuery();
 				rs.next();
 
-				if(loginEmploye == rs.getString("loginEmploye")) {
-					rep = true;
-				} else rep = false;
+				String mdpsql = rs.getString("motDePasse"); 
+				String loginsql = rs.getString("loginEmploye");
+				combosql = mdpsql + " " +loginsql;
 				
 				ps.close();
 				conn.close();
@@ -63,7 +63,7 @@ public class Dao implements Idao {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return rep;
+			return combosql;
 		}	
 	
 /**
