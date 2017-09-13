@@ -29,8 +29,6 @@ import monappproxibanque.metier.Gerant;
  */
 public class Dao implements Idao {
 	
-	// creer a changer
-	
 /**
  * CRUD Employe	
  */
@@ -45,13 +43,15 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO employe(nomEmploye, prenomEmploye, emailEmploye) VALUES (?, ?, ?)";
+			String requete = "INSERT INTO employe(idEmploye, nomEmploye, prenomEmploye, emailEmploye, idConseiller) VALUES (?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setString(1, csl.getNomEmploye()); 
-			ps.setString(2, csl.getPrenomEmploye());
-			ps.setString(3, csl.getEmailEmploye());
+			ps.setInt(1, csl.getIdEmploye());
+			ps.setString(2, csl.getNomEmploye()); 
+			ps.setString(3, csl.getPrenomEmploye());
+			ps.setString(4, csl.getEmailEmploye());
+			ps.setInt(5, csl.getIdEmploye());
 
 			ps.executeUpdate();
 			
@@ -75,13 +75,15 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO employe(nomEmploye, prenomEmploye, emailEmploye) VALUES (?, ?, ?)";
+			String requete = "INSERT INTO employe(idEmploye, nomEmploye, prenomEmploye, emailEmploye, idGerant) VALUES (?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setString(1, g.getNomEmploye()); 
-			ps.setString(2, g.getPrenomEmploye());
-			ps.setString(3, g.getEmailEmploye());
+			ps.setInt(1, g.getIdEmploye());
+			ps.setString(2, g.getNomEmploye()); 
+			ps.setString(3, g.getPrenomEmploye());
+			ps.setString(4, g.getEmailEmploye());
+			ps.setInt(5, g.getIdEmploye());
 			
 			ps.executeUpdate();
 			
@@ -553,13 +555,14 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO compte(solde, dateOuverture) VALUES (?, ?)";
+			String requete = "INSERT INTO compte(idCompte, solde, idCompteCourant) VALUES (?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setDouble(1, cptCourant.getSolde()); 
-			ps.setDate(2, (Date) cptCourant.getDateOuverture());
-	
+			ps.setInt(1, cptCourant.getIdCompte());
+			ps.setDouble(2, cptCourant.getSolde()); 
+			ps.setInt(3, cptCourant.getIdCompte());
+			
 			ps.executeUpdate();
 			
 			ps.close();
@@ -580,12 +583,13 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO compte(solde, dateOuverture) VALUES (?, ?)";
+			String requete = "INSERT INTO compte(idCompte, solde, idCompteEpargne) VALUES (?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setDouble(1, cptEpargne.getSolde()); 
-			ps.setDate(2, (Date) cptEpargne.getDateOuverture());
+			ps.setInt(1, cptEpargne.getIdCompte());
+			ps.setDouble(2, cptEpargne.getSolde()); 
+			ps.setInt(3, cptEpargne.getIdCompte());
 	
 			ps.executeUpdate();
 			
@@ -622,12 +626,12 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 				if(rs.getInt("idCompte") == rs.getInt("idCompteCourant")) {
 
 					cptCourant.setSolde(rs.getDouble("solde"));
-					cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
+					//cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
 							
 					} else if(rs.getInt("idCompte") == rs.getInt("idCompteEpargne")) {
 
 					cptEpargne.setSolde(rs.getDouble("solde"));
-					cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
+					//cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
 				}
 				
 			ps.close();
@@ -652,12 +656,11 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE compte SET solde = ?, dateOuverture = ? WHERE idCompte = ? ";
+			String requete = "UPDATE compte SET solde = ? WHERE idCompte = ? ";
 			PreparedStatement ps = conn.prepareStatement(requete);
 
 			ps.setDouble(1, cpt.getSolde());			
-			ps.setDate(2, (Date) cpt.getDateOuverture());
-			ps.setInt(3, cpt.getIdCompte());
+			ps.setInt(2, cpt.getIdCompte());
 		
 			ps.executeUpdate();
 	
@@ -720,12 +723,10 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 				if(rs.getInt("idCompte") == rs.getInt("idCompteCourant")) {
 
 					cptCourant.setSolde(rs.getDouble("solde"));
-					cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
 							
 					} else if(rs.getInt("idCompte") == rs.getInt("idCompteEpargne")) {
 
 					cptEpargne.setSolde(rs.getDouble("solde"));
-					cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
 				}
 			}
 			
@@ -752,13 +753,14 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO carte(dateExpiration, plafondPaiement, plafondRetrait) VALUES (?, ?, ?)";
+			String requete = "INSERT INTO carte(idCarte, plafondPaiement, plafondRetrait, idCartePremier) VALUES (?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setDate(1, (Date) crtPremier.getDateExpiration()); 
+			ps.setInt(1, crtPremier.getIdCarte());
 			ps.setFloat(2, crtPremier.getPlafondPaiement());
 			ps.setFloat(3, crtPremier.getPlafondRetrait());
+			ps.setInt(4, crtPremier.getIdCarte());
 			
 			ps.executeUpdate();
 			
@@ -780,13 +782,14 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO carte(dateExpiration, plafondPaiement, plafondRetrait) VALUES (?, ?, ?)";
+			String requete = "INSERT INTO carte(idCarte, plafondPaiement, plafondRetrait, idCarteElectron) VALUES (?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setDate(1, (Date) crtElectron.getDateExpiration()); 
+			ps.setInt(1, crtElectron.getIdCarte());
 			ps.setFloat(2, crtElectron.getPlafondPaiement());
 			ps.setFloat(3, crtElectron.getPlafondRetrait());
+			ps.setInt(4, crtElectron.getIdCarte());
 			
 			ps.executeUpdate();
 			
@@ -821,7 +824,6 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 				if(rs.getInt("idCarte") == rs.getInt("idCartePremier")) {
 
 					crtPremier.setIdCarte(rs.getInt("idCarte"));
-					crtPremier.setDateExpiration(rs.getDate("dateExpiration"));
 					crtPremier.setCryptogramme(rs.getInt("cryptogramme"));
 					crtPremier.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 					crtPremier.setPlafondRetrait(rs.getFloat("plafondRetrait"));
@@ -829,7 +831,6 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 				} else if(rs.getInt("idCarte") == rs.getInt("idCarteElectron")) {
 
 					crtElectron.setIdCarte(rs.getInt("idCarte"));
-					crtElectron.setDateExpiration(rs.getDate("dateExpiration"));
 					crtElectron.setCryptogramme(rs.getInt("cryptogramme"));
 					crtElectron.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 					crtElectron.setPlafondRetrait(rs.getFloat("plafondRetrait"));
@@ -925,7 +926,6 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 				if(rs.getInt("idCarte") == rs.getInt("idCartePremier")) {
 
 					crtPremier.setIdCarte(rs.getInt("idCarte"));
-					crtPremier.setDateExpiration(rs.getDate("dateExpiration"));
 					crtPremier.setCryptogramme(rs.getInt("cryptogramme"));
 					crtPremier.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 					crtPremier.setPlafondRetrait(rs.getFloat("plafondRetrait"));
@@ -933,7 +933,6 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					} else if(rs.getInt("idCarte") == rs.getInt("idCarteElectron")) {
 
 					crtElectron.setIdCarte(rs.getInt("idCarte"));
-					crtElectron.setDateExpiration(rs.getDate("dateExpiration"));
 					crtElectron.setCryptogramme(rs.getInt("cryptogramme"));
 					crtElectron.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 					crtElectron.setPlafondRetrait(rs.getFloat("plafondRetrait"));
@@ -973,7 +972,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 				a.setNomAgence(rs.getString("nomAgence"));
 				a.setAdresseAgence(rs.getString("adresseAgence"));
 				a.setCodePostalAgence(rs.getInt("codePostalAgence"));
-				a.setDateCreation(rs.getDate("dateCreation"));
+				//a.setDateCreation(rs.getDate("dateCreation"));
 			
 			} else System.out.println("Aucun résultat.");
 			
@@ -1134,14 +1133,14 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 						CompteCourant cptCourant = new CompteCourant();
 							
 						cptCourant.setSolde(rs.getDouble("solde"));
-						cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
+						//cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
 						cptCourant.setMonProprietaire(cltPart);
 								
 						} else if(rs.getInt("idCompte") == rs.getInt("idCompteEpargne")) {
 							CompteEpargne cptEpargne = new CompteEpargne();
 							
 							cptEpargne.setSolde(rs.getDouble("solde"));
-							cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
+							//cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
 							cptEpargne.setMonProprietaire(cltPart);
 						}
 					
@@ -1154,14 +1153,14 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 						CompteCourant cptCourant = new CompteCourant();
 							
 						cptCourant.setSolde(rs.getDouble("solde"));
-						cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
+						//cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
 						cptCourant.setMonProprietaire(cltEnt);
 						
 						} else if(rs.getInt("idCompte") == rs.getInt("idCompteEpargne")) {
 							CompteEpargne cptEpargne = new CompteEpargne();
 							
 							cptEpargne.setSolde(rs.getDouble("solde"));
-							cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
+							//cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
 							cptEpargne.setMonProprietaire(cltEnt);
 						}
 				}
@@ -1203,7 +1202,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					if(rs.getInt("idCarte") == rs.getInt("idCartePremier")) {
 						CarteVisaPremier crtPremier = new CarteVisaPremier();
 						crtPremier.setIdCarte(rs.getInt("idCarte"));
-						crtPremier.setDateExpiration(rs.getDate("dateExpiration"));
+						//crtPremier.setDateExpiration(rs.getDate("dateExpiration"));
 						crtPremier.setCryptogramme(rs.getInt("cryptogramme"));
 						crtPremier.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 						crtPremier.setPlafondRetrait(rs.getFloat("plafondRetrait"));
@@ -1213,7 +1212,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 						} else if(rs.getInt("idCarte") == rs.getInt("idCarteElectron")) {
 							CarteVisaElectron crtElectron = new CarteVisaElectron();	
 							crtElectron.setIdCarte(rs.getInt("idCarte"));
-							crtElectron.setDateExpiration(rs.getDate("dateExpiration"));
+							//crtElectron.setDateExpiration(rs.getDate("dateExpiration"));
 							crtElectron.setCryptogramme(rs.getInt("cryptogramme"));
 							crtElectron.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 							crtElectron.setPlafondRetrait(rs.getFloat("plafondRetrait"));
@@ -1229,7 +1228,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					if(rs.getInt("idCarte") == rs.getInt("idCartePremier")) {
 						CarteVisaPremier crtPremier = new CarteVisaPremier();
 						crtPremier.setIdCarte(rs.getInt("idCarte"));
-						crtPremier.setDateExpiration(rs.getDate("dateExpiration"));
+						//crtPremier.setDateExpiration(rs.getDate("dateExpiration"));
 						crtPremier.setCryptogramme(rs.getInt("cryptogramme"));
 						crtPremier.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 						crtPremier.setPlafondRetrait(rs.getFloat("plafondRetrait"));
@@ -1239,7 +1238,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					} else if(rs.getInt("idCarte") == rs.getInt("idCarteElectron")) {
 						CarteVisaElectron crtElectron = new CarteVisaElectron();	
 						crtElectron.setIdCarte(rs.getInt("idCarte"));
-						crtElectron.setDateExpiration(rs.getDate("dateExpiration"));
+						//crtElectron.setDateExpiration(rs.getDate("dateExpiration"));
 						crtElectron.setCryptogramme(rs.getInt("cryptogramme"));
 						crtElectron.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 						crtElectron.setPlafondRetrait(rs.getFloat("plafondRetrait"));
@@ -1499,7 +1498,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 						CompteCourant cptCourant = new CompteCourant();
 							
 						cptCourant.setSolde(rs.getDouble("solde"));
-						cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
+						//cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
 						cptCourant.setMonProprietaire(cltPart);
 						
 						comptesDuClient.add(cptCourant);
@@ -1508,7 +1507,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 							CompteEpargne cptEpargne = new CompteEpargne();
 							
 							cptEpargne.setSolde(rs.getDouble("solde"));
-							cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
+							//cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
 							cptEpargne.setMonProprietaire(cltPart);
 							
 							comptesDuClient.add(cptEpargne);
@@ -1523,7 +1522,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 						CompteCourant cptCourant = new CompteCourant();
 							
 						cptCourant.setSolde(rs.getDouble("solde"));
-						cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
+						//cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
 						cptCourant.setMonProprietaire(cltEnt);
 						
 						comptesDuClient.add(cptCourant);
@@ -1532,7 +1531,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 							CompteEpargne cptEpargne = new CompteEpargne();
 							
 							cptEpargne.setSolde(rs.getDouble("solde"));
-							cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
+							//cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
 							cptEpargne.setMonProprietaire(cltEnt);
 							
 							comptesDuClient.add(cptEpargne);
