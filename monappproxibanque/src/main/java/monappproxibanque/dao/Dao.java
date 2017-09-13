@@ -252,14 +252,70 @@ public class Dao implements Idao {
 		return listeEmployes;
 	}
 	
+public int recupererIdClient(ClientParticulier cltParticulier) {
 	
+	int id = 0;
+	
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		
+		String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+		String login = "root";
+		String mdp = "";
+		
+		Connection conn2 = DriverManager.getConnection(adresse, login, mdp);
+		
+		String requete2 = " SELECT idClient FROM client WHERE idClient = ? ";
 
+		PreparedStatement ps2 = conn2.prepareStatement(requete2);
+		
+		ps2.setInt(1, cltParticulier.getIdClient());
+		
+		ResultSet rs = ps2.executeQuery();
+		rs.next();
+		
+		id = rs.getInt("idClient");
+		
+		ps2.executeUpdate();
+		
+		ps2.close();
+		conn2.close();
+	} catch (Exception e) {
+	}
+	return id;
+}
+
+	public void updateIdClientParticulier(int id) {
+	
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		
+		String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+		String login = "root";
+		String mdp = "";
+
+	Connection conn3 = DriverManager.getConnection(adresse, login, mdp);
+	
+	String requete3 = " UPDATE client SET idClientParticulier = idClient WHERE idClient =? ";
+	
+	PreparedStatement ps3 = conn3.prepareStatement(requete3);
+	
+	ps3.setInt(1, id);
+	
+	ps3.executeUpdate();
+
+	ps3.close();
+	conn3.close();
+	} catch (Exception e) {
+	}	
+	}
+	
 /**
  * CRUD Client
  */
 	
 	@Override
-	public void creerClientParticulier(ClientParticulier cltPaticulier) {
+	public void creerClientParticulier(ClientParticulier cltParticulier) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -269,23 +325,24 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			
-			String requete = "INSERT INTO client(nomClient, prenomClient, emailClient) VALUES (?, ?, ?)";
+			String requete = "INSERT INTO client(idClient, nomClient, prenomClient, emailClient, idClientParticulier) VALUES (?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setString(1, cltPaticulier.getNomClient()); 
-			ps.setString(2, cltPaticulier.getPrenomClient());
-			ps.setString(3, cltPaticulier.getEmailClient());
+			ps.setInt(1, cltParticulier.getIdClient());
+			ps.setString(2, cltParticulier.getNomClient()); 
+			ps.setString(3, cltParticulier.getPrenomClient());
+			ps.setString(4, cltParticulier.getEmailClient());	
+			ps.setInt(5, cltParticulier.getIdClient());
 
 			ps.executeUpdate();
 
 			ps.close();
-			conn.close();
+			conn.close();		
 			
 		} catch (Exception e) {
 		}		
-			
+		
 	}
 	@Override
 	public void creerClientEntreprise(ClientEntreprise cltEntreprise) {
@@ -298,14 +355,15 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO client(nomClient, prenomClient, emailClient) VALUES (?, ?, ?)";
+			String requete = "INSERT INTO client(idClient, nomClient, prenomClient, emailClient, idEntreprise) VALUES (?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setString(1, cltEntreprise.getNomClient()); 
-			ps.setString(2, cltEntreprise.getPrenomClient());
-			ps.setString(3, cltEntreprise.getEmailClient());
-			
+			ps.setInt(1, cltEntreprise.getIdClient());
+			ps.setString(2, cltEntreprise.getNomClient()); 
+			ps.setString(3, cltEntreprise.getPrenomClient());
+			ps.setString(4, cltEntreprise.getEmailClient());	
+			ps.setInt(5, cltEntreprise.getIdClient());
 			ps.executeUpdate();
 			
 			ps.close();
@@ -1000,9 +1058,9 @@ public class Dao implements Idao {
 			if(rs!=null) {
 				rs.next();
 			
-				int conseillerID = rs.getInt("employeID");
+				int idConseiller = rs.getInt("employeID");
 				Conseiller csl = new Conseiller();
-				csl.setIdEmploye(conseillerID);
+				csl.setIdEmploye(idConseiller);
 			
 				if(rs.getInt("idClient") == rs.getInt("idClientParticulier")) {
 					ClientParticulier cltPart = new ClientParticulier();
@@ -1336,9 +1394,9 @@ public class Dao implements Idao {
 			
 			while(rs.next()){
 				
-				int conseillerID = rs.getInt("conseillerID");
+				int idConseiller = rs.getInt("conseillerID");
 				Conseiller csl = new Conseiller();
-				csl.setConseillerID(conseillerID);
+				csl.setIdConseiller(idConseiller);
 				
 				ClientParticulier cltPart = new ClientParticulier();
 				ClientEntreprise cltEnt = new ClientEntreprise();

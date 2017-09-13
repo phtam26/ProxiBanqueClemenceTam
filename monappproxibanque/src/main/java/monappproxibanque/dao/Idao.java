@@ -31,7 +31,9 @@ public interface Idao {
 	public void supprimerEmploye(int idEmploye);
 	public List<Employe> findAllEmployes();
 	
-	public void creerClientParticulier(ClientParticulier cltPaticulier);
+	public void creerClientParticulier(ClientParticulier cltParticulier);
+	public int recupererIdClient(ClientParticulier cltParticulier);
+	public void updateIdClientParticulier(int id);
 	public void creerClientEntreprise(ClientEntreprise cltEntreprise);
 	public Client lireClient(int idClient);
 	public void modifierClient(Client clt);

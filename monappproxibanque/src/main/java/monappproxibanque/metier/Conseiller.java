@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Conseiller extends Employe {
 	
-	private int conseillerID;
+	private int idConseiller;
 	private Gerant monGerant;
 	private List<Client> clients = new ArrayList<Client>();
 
@@ -17,14 +17,17 @@ public class Conseiller extends Employe {
 		super();
 	}
 
-	public int getConseillerID() {
-		return conseillerID;
+
+	public int getIdConseiller() {
+		return idConseiller;
 	}
 
-	public void setConseillerID(int conseillerID) {
-		this.conseillerID = conseillerID;
+
+	public void setIdConseiller(int idConseiller) {
+		this.idConseiller = idConseiller;
 	}
-		
+
+
 	public Gerant getMonGerant() {
 		return monGerant;
 	}
