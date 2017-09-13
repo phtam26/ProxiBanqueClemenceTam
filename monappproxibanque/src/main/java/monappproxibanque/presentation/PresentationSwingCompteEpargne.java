@@ -104,7 +104,7 @@ public class PresentationSwingCompteEpargne extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				CompteEpargne p = new CompteEpargne();
-				SimpleDateFormat formatter = new SimpleDateFormat("AAAA-MM-JJ");
+				//SimpleDateFormat formatter = new SimpleDateFormat("AAAA-MM-JJ");
 				p.setSolde(Integer.parseInt(zonesaisiesolde.getText()));
 				zonesaisiesolde.setText("");
 				p.setIdCompte(Integer.parseInt(zonesaisieid1.getText()));
