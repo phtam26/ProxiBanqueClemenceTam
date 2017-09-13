@@ -101,14 +101,14 @@ public class PresentationSwingCompteCourant extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				CompteCourant p = new CompteCourant();
-				SimpleDateFormat formatter = new SimpleDateFormat("AAAA-MM-JJ");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				p.setSolde(Integer.parseInt(zonesaisiesolde.getText()));
 				zonesaisiesolde.setText("");
 				try {
 					p.setDateOuverture(formatter.parse(zonesaisiedatedouverture.getText()));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				zonesaisiedatedouverture.setText("");
 				
@@ -140,7 +140,7 @@ public class PresentationSwingCompteCourant extends JFrame{
 				// TODO Auto-generated method stub
 				CompteCourant p = new CompteCourant();
 				
-				SimpleDateFormat formatter = new SimpleDateFormat("AAAA-MM-JJ");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				p.setIdCompte(Integer.parseInt(zonesaisiesolde3.getText()));
 				zonesaisiesolde3.setText("");
 				try {

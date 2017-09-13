@@ -128,9 +128,7 @@ public class PresentationSwingGerant extends JFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			Gerant p = new Gerant();
-			int id;
-			String nom;
-			String prenom;
+	
 			
 			p.setIdEmploye(Integer.parseInt(zonesaisieid3.getText()));
 			zonesaisieid3.setText("");
