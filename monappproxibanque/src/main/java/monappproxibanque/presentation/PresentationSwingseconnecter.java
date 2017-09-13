@@ -51,11 +51,11 @@ public class PresentationSwingseconnecter extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 	
-				if (ig.seConnecter(zonesaisielogin.getText(),zonesaisiemotdepasse.getText()!=null);
+				if (ig.seConnecter(zonesaisielogin.getText(),zonesaisiemotdepasse.getText())!=null);
 				{
 					PresentationSwingAccueil f = new PresentationSwingAccueil() ;
 					f.setVisible(true);
-				} else System.out.println("Erreur de connexion");
+				}
 				
 			}});
 		
