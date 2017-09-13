@@ -50,8 +50,10 @@ public class PresentationSwingseconnecter extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-	
-				if (ig.seConnecter(zonesaisielogin.getText(),zonesaisiemotdepasse.getText())!=null);
+				String log=zonesaisielogin.getText();
+				String mdp=zonesaisiemotdepasse.getText();
+				
+				if (ig.seConnecter(zonesaisielogin.getText(),zonesaisiemotdepasse.getText())==mdp+" "+log);
 				{
 					PresentationSwingAccueil f = new PresentationSwingAccueil() ;
 					f.setVisible(true);
