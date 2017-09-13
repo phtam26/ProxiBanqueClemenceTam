@@ -20,7 +20,7 @@ import monappproxibanque.metier.Conseiller;
 import monappproxibanque.service.IGerant;
 import monappproxibanque.service.ServiceImpl;
 
-public class PresentationSwingCompteEpargne extends JFrame{
+public class PresentationSwingCompteCourant extends JFrame{
 	private JPanel panel1 = new JPanel();
 	private JPanel panel2 = new JPanel();
 	private JPanel panel3 = new JPanel();
@@ -82,8 +82,8 @@ public class PresentationSwingCompteEpargne extends JFrame{
 	IGerant ig=new ServiceImpl();
 	
 	//constructeur
-		public PresentationSwingCompteEpargne() {
-		setTitle("Gestion des Comptes Epargne");
+		public PresentationSwingCompteCourant() {
+		setTitle("Gestion des Comptes Courants");
 		//la taille de la fenetre
 		setSize(500,300);
 		//précise la taille est non modifiable
@@ -100,7 +100,7 @@ public class PresentationSwingCompteEpargne extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				CompteEpargne p = new CompteEpargne();
+				CompteCourant p = new CompteCourant();
 				SimpleDateFormat formatter = new SimpleDateFormat("AAAA-MM-JJ");
 				p.setSolde(Integer.parseInt(zonesaisiesolde.getText()));
 				zonesaisiesolde.setText("");
@@ -111,8 +111,9 @@ public class PresentationSwingCompteEpargne extends JFrame{
 					e.printStackTrace();
 				}
 				zonesaisiedatedouverture.setText("");
-					
-				ig.creerCompteEpargne(p);
+				
+				
+				ig.creerCompteCourant(p);
 			
 			}});
 		
@@ -122,10 +123,10 @@ public class PresentationSwingCompteEpargne extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				CompteEpargne p = new CompteEpargne();
+				CompteCourant p = new CompteCourant();
 				p.setIdCompte(Integer.parseInt(zonesaisieid.getText()));
 				int id =(Integer.parseInt(zonesaisieid.getText()));
-				p=(CompteEpargne)ig.lireCompte(id);
+				p=(CompteCourant)ig.lireCompte(id);
 				texte.setText(p.toString());
 				
 			
@@ -137,10 +138,8 @@ public class PresentationSwingCompteEpargne extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				CompteEpargne p = new CompteEpargne();
-				int id;
-				String solde;
-				Date datedouverture;
+				CompteCourant p = new CompteCourant();
+				
 				SimpleDateFormat formatter = new SimpleDateFormat("AAAA-MM-JJ");
 				p.setIdCompte(Integer.parseInt(zonesaisiesolde3.getText()));
 				zonesaisiesolde3.setText("");

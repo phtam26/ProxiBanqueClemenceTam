@@ -112,7 +112,7 @@ public class PresentationSwingAccueil extends JFrame{
 				fc.setVisible(true);
 			}
 			else if (comboEmploye.getSelectedItem().toString()=="Gerant") {
-				PresentationSwingGerant fg = new PresentationSwingCompteGerant() ;
+				PresentationSwingGerant fg = new PresentationSwingGerant() ;
 				
 				fg.setVisible(true);
 			}

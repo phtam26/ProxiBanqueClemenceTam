@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import monappproxibanque.metier.ClientParticulier;
 import monappproxibanque.metier.Conseiller;
+import monappproxibanque.metier.Gerant;
 import monappproxibanque.service.IConseiller;
 import monappproxibanque.service.IGerant;
 import monappproxibanque.service.ServiceImpl;
@@ -115,9 +116,10 @@ public class PresentationSwingConseiller extends JFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			Conseiller p = new Conseiller();
-			p.setIdEmploye(Integer.parseInt(zonesaisieid.getText()));
+			int id =(Integer.parseInt(zonesaisieid.getText()));
+			p=(Conseiller)ig.lireEmploye(id);
+			texteclient.setText(p.toString());
 			
-			ig.lireConseiller(p);
 		
 		}});
 	
@@ -128,9 +130,6 @@ public class PresentationSwingConseiller extends JFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			Conseiller p = new Conseiller();
-			int id;
-			String nom;
-			String prenom;
 			
 			p.setIdEmploye(Integer.parseInt(zonesaisieid3.getText()));
 			zonesaisieid3.setText("");
@@ -139,7 +138,7 @@ public class PresentationSwingConseiller extends JFrame{
 			p.setPrenomEmploye(zonesaisieprenom3.getText());
 			zonesaisieprenom3.setText("");
 			
-			ig.modifierConseiller(p);
+			ig.modifierEmploye(p);
 		
 		}});
 	
@@ -152,7 +151,7 @@ public class PresentationSwingConseiller extends JFrame{
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
 			
-			ig.supprimerConseiller(id);
+			ig.supprimerEmploye(id);
 		
 		}});
 	

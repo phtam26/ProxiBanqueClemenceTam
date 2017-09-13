@@ -44,7 +44,7 @@ public class PresentationSwingGerant extends JFrame{
 	private JButton valider2 = new JButton ("Valider");
 	private JTextField zonesaisieid = new JTextField(10);
 	private JLabel id = new JLabel("Id");
-	private JLabel texteclient = new JLabel("texteclient");
+	private JLabel texteclient = new JLabel("texte");
 	
 	
 	//onglet modifier
@@ -116,10 +116,9 @@ public class PresentationSwingGerant extends JFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			Gerant p = new Gerant();
-			p.setIdEmploye(Integer.parseInt(zonesaisieid.getText()));
-			
-			ig.lireGerant(p);
-		
+			int id =(Integer.parseInt(zonesaisieid.getText()));
+			p=(Gerant)ig.lireEmploye(id);
+			texteclient.setText(p.toString());
 		}});
 	
 	valider3.addActionListener(new ActionListener() {
@@ -140,7 +139,7 @@ public class PresentationSwingGerant extends JFrame{
 			p.setPrenomEmploye(zonesaisieprenom3.getText());
 			zonesaisieprenom3.setText("");
 			
-			ig.modifierGerant(p);
+			ig.modifierEmploye(p);
 		
 		}});
 	
@@ -153,7 +152,7 @@ public class PresentationSwingGerant extends JFrame{
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
 			
-			ig.supprimerGerant(id);
+			ig.supprimerEmploye(id);
 		
 		}});
 	

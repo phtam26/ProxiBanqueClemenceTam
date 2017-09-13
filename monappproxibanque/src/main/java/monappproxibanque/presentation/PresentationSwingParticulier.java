@@ -115,10 +115,10 @@ public class PresentationSwingParticulier extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
+			int id =Integer.parseInt(zonesaisieid.getText());
 			ClientParticulier p = new ClientParticulier();
-			p.setIdClient(Integer.parseInt(zonesaisieid.getText()));
-			
-			ic.lireClientParticulier(p);
+			p=(ClientParticulier)ic.lireClient(id);
+			texteclient.setText(p.toString());
 		
 		}});
 	
@@ -129,9 +129,7 @@ public class PresentationSwingParticulier extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			ClientParticulier p = new ClientParticulier();
-			int id;
-			String nom;
-			String prenom;
+			
 			
 			p.setIdClient(Integer.parseInt(zonesaisieid3.getText()));
 			zonesaisieid3.setText("");
@@ -140,7 +138,7 @@ public class PresentationSwingParticulier extends JFrame {
 			p.setPrenomClient(zonesaisieprenom3.getText());
 			zonesaisieprenom3.setText("");
 			
-			ic.modifierClientParticulier(p);
+			ic.modifierClient(p);
 		
 		}});
 	
@@ -153,7 +151,7 @@ public class PresentationSwingParticulier extends JFrame {
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
 			
-			ic.supprimerClientParticulier(id);
+			ic.supprimerClient(id);
 		
 		}});
 	

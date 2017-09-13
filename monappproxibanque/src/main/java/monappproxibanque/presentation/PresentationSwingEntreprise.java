@@ -117,9 +117,10 @@ public class PresentationSwingEntreprise extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			ClientEntreprise p = new ClientEntreprise();
-			p.setIdClient(Integer.parseInt(zonesaisieid.getText()));
+			int id =Integer.parseInt(zonesaisieid.getText());
+			p=(ClientEntreprise)ic.lireClient(id);
+			texteclient.setText(p.toString());
 			
-			ic.lireClientEntreprise(p);
 		
 		}});
 	
@@ -131,8 +132,6 @@ public class PresentationSwingEntreprise extends JFrame {
 			// TODO Auto-generated method stub
 			ClientEntreprise p = new ClientEntreprise();
 			int id;
-			String nom;
-			String prenom;
 			
 			p.setIdClient(Integer.parseInt(zonesaisieid3.getText()));
 			zonesaisieid3.setText("");
@@ -141,7 +140,7 @@ public class PresentationSwingEntreprise extends JFrame {
 			p.setPrenomClient(zonesaisieprenom3.getText());
 			zonesaisieprenom3.setText("");
 			
-			ic.modifierClientEntreprise(p);
+			ic.modifierClient(p);
 		
 		}});
 	
@@ -154,7 +153,7 @@ public class PresentationSwingEntreprise extends JFrame {
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
 			
-			ic.supprimerClientEntreprise(id);
+			ic.supprimerClient(id);
 		
 		}});
 	
