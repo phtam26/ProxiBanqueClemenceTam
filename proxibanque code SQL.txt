@@ -12,6 +12,7 @@ CREATE TABLE agence
 (idAgence INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 nomAgence VARCHAR(32) NOT NULL,
 adresseAgence VARCHAR(32) NOT NULL,
+codePostalAgence INT NOT NULL,
 dateCreation DATE NOT NULL
 ) ENGINE = InnoDB;
 
@@ -23,8 +24,7 @@ adresseClient VARCHAR(32) NOT NULL,
 codePostal INT NOT NULL,
 ville VARCHAR(32) NOT NULL,
 telClient INT NOT NULL,
-emailClient VARCHAR(32) NOT NULL,
-matriculeEntreprise INT NOT NULL
+emailClient VARCHAR(32) NOT NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE compte
@@ -44,22 +44,92 @@ plafondPaiement DOUBLE,
 plafondRetrait DOUBLE
 ) ENGINE = InnoDB;
 
+
+/* association */
+
 ALTER TABLE employe
 ADD agenceID INT NOT NULL;
 ALTER TABLE employe
 ADD CONSTRAINT fk_agenceid FOREIGN KEY (agenceID) REFERENCES agence (idAgence);
 
 ALTER TABLE client
-ADD employeID INT NOT NULL;
+ADD conseillerID INT NOT NULL;
 ALTER TABLE client
-ADD CONSTRAINT fk_employeid FOREIGN KEY (employeID) REFERENCES employe (idEmploye);
+ADD CONSTRAINT fk_conseillerid FOREIGN KEY (conseillerID) REFERENCES employe (idEmploye);
+
+ALTER TABLE client
+ADD gerantID INT NOT NULL;
+ALTER TABLE client
+ADD CONSTRAINT fk_gerantid FOREIGN KEY (gerantID) REFERENCES employe (idEmploye);
 
 ALTER TABLE compte
-ADD clientID INT NOT NULL;
+ADD clientParticulierID INT NOT NULL;
 ALTER TABLE compte
-ADD CONSTRAINT fk_clientid FOREIGN KEY (clientID) REFERENCES client (idClient);
+ADD CONSTRAINT fk_clientParticulierid FOREIGN KEY (clientParticulierID) REFERENCES client (idClient);
 
 ALTER TABLE compte
-ADD carteID INT NOT NULL;
+ADD clientEntrepriseID INT NOT NULL;
 ALTER TABLE compte
-ADD CONSTRAINT fk_carteid FOREIGN KEY (carteID) REFERENCES carte (idCarte);
+ADD CONSTRAINT fk_clientEntrepriseid FOREIGN KEY (clientEntrepriseID) REFERENCES client (idClient);
+
+
+/* à refaire */
+ALTER TABLE carte
+ADD compteCourantID INT NOT NULL;
+ALTER TABLE carte
+ADD CONSTRAINT fk_comptecourantid FOREIGN KEY (compteCourantID) REFERENCES carte (idCompte);
+
+ALTER TABLE carte
+ADD compteEpargneID INT NOT NULL;
+ALTER TABLE carte
+ADD CONSTRAINT fk_compteepargneid FOREIGN KEY (compteEpargneID) REFERENCES carte (idCompte);
+
+
+/* heritage */ ok
+
+ALTER TABLE employe
+ADD idGerant INT NULL;
+ALTER TABLE employe
+ADD CONSTRAINT fk_heritage_employe_gerant FOREIGN KEY (idGerant) REFERENCES employe (idEmploye);
+
+ALTER TABLE employe
+ADD idConseiller INT NULL;
+ALTER TABLE employe
+ADD CONSTRAINT fk_heritage_employe_conseiller FOREIGN KEY (idConseiller) REFERENCES employe (idEmploye);
+
+
+
+ALTER TABLE client
+ADD idClientParticulier INT NULL;
+ALTER TABLE client
+ADD CONSTRAINT fk_heritage_client_particulier FOREIGN KEY (idClientParticulier) REFERENCES client(idClient);
+
+ALTER TABLE client
+ADD idClientEntreprise INT NULL;
+ALTER TABLE client
+ADD CONSTRAINT fk_heritage_client_entreprise FOREIGN KEY (idClientEntreprise) REFERENCES client(idClient);
+
+
+
+ALTER TABLE compte
+ADD idCompteCourant INT NULL;
+ALTER TABLE compte
+ADD CONSTRAINT fk_heritage_compte_courant FOREIGN KEY (idCompteCourant) REFERENCES compte(idCompte);
+
+ALTER TABLE compte
+ADD idCompteEpargne INT NULL;
+ALTER TABLE compte
+ADD CONSTRAINT fk_heritage_compte_epargne FOREIGN KEY (idCompteEpargne) REFERENCES compte(idCompte);
+
+
+
+
+ALTER TABLE carte
+ADD idCartePremier INT NULL;
+ALTER TABLE carte
+ADD CONSTRAINT fk_heritage_carte_premier FOREIGN KEY (idCartePremier) REFERENCES carte(idCarte);
+
+ALTER TABLE carte
+ADD idCarteElectron INT NULL;
+ALTER TABLE carte
+ADD CONSTRAINT fk_heritage_carte_electron FOREIGN KEY (idCarteElectron) REFERENCES carte(idCarte);
