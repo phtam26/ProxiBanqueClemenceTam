@@ -36,7 +36,7 @@ public class PresentationSwingCompteEpargne extends JFrame{
 	private JTextField zonesaisiedatedouverture = new JTextField(10);
 	
 	private JLabel solde = new JLabel("Solde");
-	private JLabel datedouverture = new JLabel("Date d'ouverture du compte");
+	private JLabel datedouverture = new JLabel("Date d'ouverture du compte AAAA-MM-JJ");
 	
 	
 	//onglet lire
@@ -64,7 +64,7 @@ public class PresentationSwingCompteEpargne extends JFrame{
 	
 	private JLabel id3 = new JLabel("Id");
 	private JLabel solde3 = new JLabel("Solde");
-	private JLabel datedouverture3 = new JLabel("Date d'ouverture");
+	private JLabel datedouverture3 = new JLabel("Date d'ouverture du compte AAAA-MM-JJ");
 	
 	
 	private JButton valider3 = new JButton ("Valider");
@@ -176,7 +176,7 @@ public class PresentationSwingCompteEpargne extends JFrame{
 		panelsolde.add(zonesaisiesolde);
 		
 		paneldatedouverture.add(datedouverture);
-		paneldatedouverture.add(datedouverture);
+		paneldatedouverture.add(zonesaisiedatedouverture);
 		
 		panelbouton1.add(valider1);
 		
