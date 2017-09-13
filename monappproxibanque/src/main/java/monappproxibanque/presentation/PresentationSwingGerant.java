@@ -8,17 +8,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import monappproxibanque.metier.ClientParticulier;
+import monappproxibanque.metier.Conseiller;
+import monappproxibanque.metier.Gerant;
 import monappproxibanque.service.IConseiller;
+import monappproxibanque.service.IGerant;
 import monappproxibanque.service.ServiceImpl;
 
-
-public class PresentationSwingParticulier extends JFrame {
+public class PresentationSwingGerant extends JFrame{
 	private JPanel panel1 = new JPanel();
 	private JPanel panel2 = new JPanel();
 	private JPanel panel3 = new JPanel();
@@ -76,11 +76,11 @@ public class PresentationSwingParticulier extends JFrame {
 	private JButton valider4 = new JButton ("Valider");
 	
 	
-	IConseiller ic=new ServiceImpl();
+	IGerant ig=new ServiceImpl();
 	
 	//constructeur
-	public PresentationSwingParticulier() {
-	setTitle("Gestion des Clients Particuliers");
+	public PresentationSwingGerant() {
+	setTitle("Gestion des Gerants");
 	//la taille de la fenetre
 	setSize(500,300);
 	//précise la taille est non modifiable
@@ -97,15 +97,15 @@ public class PresentationSwingParticulier extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			ClientParticulier p = new ClientParticulier();
-			p.setNomClient(zonesaisienom.getText());
+			Gerant p = new Gerant();
+			p.setNomEmploye(zonesaisienom.getText());
 			zonesaisienom.setText("");
-			p.setPrenomClient(zonesaisieprenom.getText());
+			p.setPrenomEmploye(zonesaisieprenom.getText());
 			zonesaisieprenom.setText("");
-			p.setEmailClient(zonesaisieemail.getText()); 
+			p.setEmailEmploye(zonesaisieemail.getText()); 
 			zonesaisieemail.setText("");
 			//
-			ic.creerClientParticulier(p);
+			ig.creerGerant(p);
 		
 		}});
 	
@@ -115,10 +115,10 @@ public class PresentationSwingParticulier extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			ClientParticulier p = new ClientParticulier();
-			p.setIdClient(Integer.parseInt(zonesaisieid.getText()));
+			Gerant p = new Gerant();
+			p.setIdEmploye(Integer.parseInt(zonesaisieid.getText()));
 			
-			ic.lireClientParticulier(p);
+			ig.lireGerant(p);
 		
 		}});
 	
@@ -128,19 +128,19 @@ public class PresentationSwingParticulier extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			ClientParticulier p = new ClientParticulier();
+			Gerant p = new Gerant();
 			int id;
 			String nom;
 			String prenom;
 			
-			p.setIdClient(Integer.parseInt(zonesaisieid3.getText()));
+			p.setIdEmploye(Integer.parseInt(zonesaisieid3.getText()));
 			zonesaisieid3.setText("");
-			p.setNomClient(zonesaisienom3.getText());
+			p.setNomEmploye(zonesaisienom3.getText());
 			zonesaisienom3.setText("");
-			p.setPrenomClient(zonesaisieprenom3.getText());
+			p.setPrenomEmploye(zonesaisieprenom3.getText());
 			zonesaisieprenom3.setText("");
 			
-			ic.modifierClientParticulier(p);
+			ig.modifierGerant(p);
 		
 		}});
 	
@@ -153,7 +153,7 @@ public class PresentationSwingParticulier extends JFrame {
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
 			
-			ic.supprimerClientParticulier(id);
+			ig.supprimerGerant(id);
 		
 		}});
 	
@@ -232,10 +232,5 @@ public class PresentationSwingParticulier extends JFrame {
 	onglets.addTab("Modifier",panel3);
 	onglets.addTab("Supprimer",panel4);
 	getContentPane().add(onglets);
-	
-	
-	
-
 	}
-
 }

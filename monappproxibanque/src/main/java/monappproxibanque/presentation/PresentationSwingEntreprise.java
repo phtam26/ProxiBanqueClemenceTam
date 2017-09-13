@@ -13,6 +13,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import monappproxibanque.metier.ClientEntreprise;
 import monappproxibanque.metier.ClientParticulier;
 import monappproxibanque.service.IConseiller;
 import monappproxibanque.service.ServiceImpl;
@@ -102,7 +103,7 @@ public class PresentationSwingEntreprise extends JFrame {
 			zonesaisienom.setText("");
 			p.setPrenomClient(zonesaisieprenom.getText());
 			zonesaisieprenom.setText("");
-			p.setMail(Integer.parseInt(zonesaisieemail.getText())); 
+			p.setEmailClient(zonesaisieemail.getText()); 
 			zonesaisieemail.setText("");
 			//
 			ic.creerClientEntreprise(p);
@@ -116,7 +117,7 @@ public class PresentationSwingEntreprise extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			ClientEntreprise p = new ClientEntreprise();
-			p.setId(zonesaisieid.getText());
+			p.setIdClient(Integer.parseInt(zonesaisieid.getText()));
 			
 			ic.lireClientEntreprise(p);
 		
@@ -133,7 +134,7 @@ public class PresentationSwingEntreprise extends JFrame {
 			String nom;
 			String prenom;
 			
-			p.setId(Integer.parseInt(zonesaisieid3.getText()));
+			p.setIdClient(Integer.parseInt(zonesaisieid3.getText()));
 			zonesaisieid3.setText("");
 			p.setNomClient(zonesaisienom3.getText());
 			zonesaisienom3.setText("");
