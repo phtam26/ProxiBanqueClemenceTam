@@ -508,17 +508,6 @@ public class Dao implements Idao {
 	
 	@Override
 	public void creerCompteCourant(CompteCourant cptCourant) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void creerCompteEpargne(CompteEpargne cptEpargne) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void creerCompte(Compte cpt) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -533,8 +522,8 @@ public class Dao implements Idao {
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setDouble(1, cpt.getSolde()); 
-			ps.setDate(2, (Date) cpt.getDateOuverture());
+			ps.setDouble(1, cptCourant.getSolde()); 
+			ps.setDate(2, (Date) cptCourant.getDateOuverture());
 	
 			ps.executeUpdate();
 			
@@ -544,6 +533,37 @@ public class Dao implements Idao {
 		} catch (Exception e) {
 		}		
 	}
+		
+	
+	@Override
+	public void creerCompteEpargne(CompteEpargne cptEpargne) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+			
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+			
+			String requete = "INSERT INTO compte(solde, dateOuverture) +"
+								+ " VALUES (?, ?)";
+			
+			PreparedStatement ps = conn.prepareStatement(requete);
+			
+			ps.setDouble(1, cptEpargne.getSolde()); 
+			ps.setDate(2, (Date) cptEpargne.getDateOuverture());
+	
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+			
+		} catch (Exception e) {
+		}		
+	}
+		
+	
 
 	@Override
 	public Compte lireCompte(int idCompte) {
