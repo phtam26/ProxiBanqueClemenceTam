@@ -39,7 +39,7 @@ public class Gerant extends Employe {
 
 	@Override
 	public String toString() {
-		return "Gerant [conseillers=" + conseillers + "]";
+		return "Gerant [idGerant=" + idGerant + super.toString() + "]";
 	}
 
 }

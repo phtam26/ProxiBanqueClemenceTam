@@ -49,8 +49,11 @@ public class Conseiller extends Employe {
 		return clients;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Conseiller [monGerant=" + monGerant + ", clients=" + clients + "]";
-	}	
+		return super.toString();
+	}
+
+	
 }
