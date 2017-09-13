@@ -1,25 +1,70 @@
 package monappproxibanque.service;
 
+import monappproxibanque.dao.Dao;
 import monappproxibanque.dao.Idao;
 import monappproxibanque.metier.Carte;
+import monappproxibanque.metier.CarteVisaElectron;
+import monappproxibanque.metier.CarteVisaPremier;
 import monappproxibanque.metier.Client;
+import monappproxibanque.metier.ClientEntreprise;
+import monappproxibanque.metier.ClientParticulier;
 import monappproxibanque.metier.Compte;
+import monappproxibanque.metier.CompteCourant;
+import monappproxibanque.metier.CompteEpargne;
+import monappproxibanque.metier.Conseiller;
 import monappproxibanque.metier.Employe;
+import monappproxibanque.metier.Gerant;
 
 public class ServiceImpl implements IConseiller , IGerant {
 
 	private Idao dao = new Dao();
 
 	@Override
-	public void creerClient(Client clt) {
+	public void creerConseiller(Conseiller csl) {
 		// TODO Auto-generated method stub
-		dao.creerClient(clt);
+		dao.creerConseiller(csl);
 	}
 
 	@Override
-	public void supprimerClient(Client clt) {
+	public void creerGerant(Gerant g) {
 		// TODO Auto-generated method stub
-		dao.supprimerClient(clt);
+		dao.creerGerant(g);
+	}
+
+	@Override
+	public Employe lireEmploye(int idEmploye) {
+		// TODO Auto-generated method stub
+		return dao.lireEmploye(idEmploye);
+	}
+
+	@Override
+	public void modifierEmploye(Employe epl) {
+		// TODO Auto-generated method stub
+		dao.modifierEmploye(epl);
+	}
+
+	@Override
+	public void supprimerEmploye(int idEmploye) {
+		// TODO Auto-generated method stub
+		dao.supprimerEmploye(idEmploye);
+	}
+
+	@Override
+	public void creerClientParticulier(ClientParticulier cltPaticulier) {
+		// TODO Auto-generated method stub
+		dao.creerClientParticulier(cltPaticulier);
+	}
+
+	@Override
+	public void creerClientEntreprise(ClientEntreprise cltEntreprise) {
+		// TODO Auto-generated method stub
+		dao.creerClientEntreprise(cltEntreprise);
+	}
+
+	@Override
+	public Client lireClient(int idClient) {
+		// TODO Auto-generated method stub
+		return dao.lireClient(idClient);
 	}
 
 	@Override
@@ -29,21 +74,27 @@ public class ServiceImpl implements IConseiller , IGerant {
 	}
 
 	@Override
-	public void LireClient(Client clt) {
+	public void supprimerClient(int idClient) {
 		// TODO Auto-generated method stub
-		dao.lireClient(clt);
+		dao.supprimerClient(idClient);
 	}
 
 	@Override
-	public void creerCarte(Carte crt) {
+	public void creerCartePremier(CarteVisaPremier crtPremier) {
 		// TODO Auto-generated method stub
-		dao.creerCarte(crt);
+		dao.creerCartePremier(crtPremier);
 	}
 
 	@Override
-	public void supprimerCarte(Carte crt) {
+	public void creerCarteElectron(CarteVisaElectron crtElectron) {
 		// TODO Auto-generated method stub
-		dao.supprimerCarte(crt);
+		dao.creerCarteElectron(crtElectron);
+	}
+
+	@Override
+	public Carte lireCarte(int idCarte) {
+		// TODO Auto-generated method stub
+		return dao.lireCarte(idCarte);
 	}
 
 	@Override
@@ -53,21 +104,27 @@ public class ServiceImpl implements IConseiller , IGerant {
 	}
 
 	@Override
-	public void LireCarte(Carte crt) {
+	public void supprimerCarte(int idCarte) {
 		// TODO Auto-generated method stub
-		dao.lireCarte(crt);
+		dao.supprimerCarte(idCarte);
 	}
 
 	@Override
-	public void creerCompte(Compte cpt) {
+	public void creerCompteCourant(CompteCourant cptCourant) {
 		// TODO Auto-generated method stub
-		dao.creerCompte(cpt);
+	dao.creerCompteCourant(cptCourant);	
 	}
 
 	@Override
-	public void supprimerCompte(Compte cpt) {
+	public void creerCompteEpargne(CompteEpargne cptEpargne) {
 		// TODO Auto-generated method stub
-		dao.supprimerCompte(cpt);
+		dao.creerCompteEpargne(cptEpargne);
+	}
+
+	@Override
+	public Compte lireCompte(int idCompte) {
+		// TODO Auto-generated method stub
+		return dao.lireCompte(idCompte);
 	}
 
 	@Override
@@ -77,34 +134,13 @@ public class ServiceImpl implements IConseiller , IGerant {
 	}
 
 	@Override
-	public void LireCompte(Compte cpt) {
+	public void supprimerCompte(int idCompte) {
 		// TODO Auto-generated method stub
-		dao.lireCompte(cpt);
+		dao.supprimerCompte(idCompte);
 	}
 
-	@Override
-	public void creerEmploye(Employe epl) {
-		// TODO Auto-generated method stub
-		dao.creerEmploye(epl);
-	}
+	
 
-	@Override
-	public void supprimerEmploye(Employe epl) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void modifierEmploye(Employe epl) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void LireEmploye(Employe epl) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 	
