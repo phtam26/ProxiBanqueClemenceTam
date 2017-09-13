@@ -532,8 +532,7 @@ public class Dao implements Idao {
 			
 		} catch (Exception e) {
 		}		
-	}
-		
+	}	
 	
 	@Override
 	public void creerCompteEpargne(CompteEpargne cptEpargne) {
