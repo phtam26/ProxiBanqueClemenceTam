@@ -28,6 +28,44 @@ import monappproxibanque.metier.Gerant;
  */
 public class Dao implements Idao {
 	
+	/**
+	 * L'utilisateur doit s'authentifier avant de pouvoir utiliser d'autres fonctionnalites.
+	 */
+		@Override
+		public boolean seConnecter(String loginEmploye, String motDePasse) {
+			
+			boolean rep = false;
+			
+			try {
+
+				Class.forName("com.mysql.jdbc.Driver");
+				
+				String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+				String login = "root";
+				String mdp = "";
+
+				Connection conn = DriverManager.getConnection(adresse, login, mdp);
+
+				String requete = "SELECT motDePasse FROM employe WHERE loginEmploye = ?";
+				PreparedStatement ps = conn.prepareStatement(requete);	
+				ps.setString(1, loginEmploye);
+				
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+
+				if(loginEmploye == rs.getString("loginEmploye")) {
+					rep = true;
+				} else rep = false;
+				
+				ps.close();
+				conn.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return rep;
+		}	
+	
 /**
  * CRUD Employe	
  */
@@ -1593,43 +1631,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 	
 	
 	
-/**
- * L'utilisateur doit s'authentifier avant de pouvoir utiliser d'autres fonctionnalites.
- */
-	@Override
-	public boolean seConnecter(String loginEmploye, String motDePasse) {
-		
-		boolean rep = false;
-		
-		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-			
-			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
-			String login = "root";
-			String mdp = "";
-
-			Connection conn = DriverManager.getConnection(adresse, login, mdp);
-
-			String requete = "SELECT motDePasse FROM employe WHERE loginEmploye = ?";
-			PreparedStatement ps = conn.prepareStatement(requete);	
-			ps.setString(1, loginEmploye);
-			
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-
-			if(loginEmploye == rs.getString("loginEmploye")) {
-				rep = true;
-			} else rep = false;
-			
-			ps.close();
-			conn.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return rep;
-	}	
 /**
  * La methode faireVirement permet d'effectuer un virement entre un compte emetteur et un compte receveur.
  */
