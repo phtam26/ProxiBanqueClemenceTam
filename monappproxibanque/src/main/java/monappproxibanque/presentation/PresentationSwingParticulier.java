@@ -99,14 +99,16 @@ public class PresentationSwingParticulier extends JFrame {
 			// TODO Auto-generated method stub
 			ClientParticulier p = new ClientParticulier();
 			p.setNomClient(zonesaisienom.getText());
-			zonesaisienom.setText("");
+			
 			p.setPrenomClient(zonesaisieprenom.getText());
-			zonesaisieprenom.setText("");
+
 			p.setEmailClient(zonesaisieemail.getText()); 
-			zonesaisieemail.setText("");
-			//
+			
+			
 			ic.creerClientParticulier(p);
-		
+			zonesaisienom.setText("");
+			zonesaisieprenom.setText("");
+			zonesaisieemail.setText("");
 		}});
 	
 	//lire info

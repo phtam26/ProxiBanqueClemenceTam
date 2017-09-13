@@ -23,7 +23,7 @@ import monappproxibanque.metier.Employe;
 import monappproxibanque.metier.Gerant;
 
 /**
- * La classe Dao permet repr�sente toutes les fonctionnalites du programme.
+ * La classe Dao permet represente toutes les fonctionnalites du programme.
  * @author Tam
  *
  */
@@ -43,19 +43,14 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO employe(conseillerID, nomEmploye, prenomEmploye, emailEmploye, telEmploye, login, motDePasse) +"
-								+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String requete = "INSERT INTO employe(nomEmploye, prenomEmploye, emailEmploye) VALUES (?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, csl.getConseillerID());
-			ps.setString(2, csl.getNomEmploye()); 
-			ps.setString(3, csl.getPrenomEmploye());
-			ps.setString(4, csl.getEmailEmploye());
-			ps.setString(5, csl.getTelEmploye());
-			ps.setString(6, csl.getLogin());
-			ps.setString(7, csl.getMotDePasse());
-			
+			ps.setString(1, csl.getNomEmploye()); 
+			ps.setString(2, csl.getPrenomEmploye());
+			ps.setString(3, csl.getEmailEmploye());
+
 			ps.executeUpdate();
 			
 			ps.close();
@@ -78,18 +73,13 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO employe(gerantID, nomEmploye, prenomEmploye, emailEmploye, telEmploye, login, motDePasse) +"
-								+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String requete = "INSERT INTO employe(nomEmploye, prenomEmploye, emailEmploye) VALUES (?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, g.getGerantID());
-			ps.setString(2, g.getNomEmploye()); 
-			ps.setString(3, g.getPrenomEmploye());
-			ps.setString(4, g.getEmailEmploye());
-			ps.setString(5, g.getTelEmploye());
-			ps.setString(6, g.getLogin());
-			ps.setString(7, g.getMotDePasse());
+			ps.setString(1, g.getNomEmploye()); 
+			ps.setString(2, g.getPrenomEmploye());
+			ps.setString(3, g.getEmailEmploye());
 			
 			ps.executeUpdate();
 			
@@ -163,8 +153,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE employe SET nomEmploye = ?, prenomEmploye = ? " +
-							 " WHERE idEmploye = ? ";
+			String requete = "UPDATE employe SET nomEmploye = ?, prenomEmploye = ? WHERE idEmploye = ? ";
 			PreparedStatement ps = conn.prepareStatement(requete);
 
 			ps.setString(1, epl.getNomEmploye());			
@@ -280,22 +269,17 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO client(clientParticulierID, nomClient, prenomClient, adresseClient, codePostal, ville, telClient, emailClient) +"
-								+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			String requete = "INSERT INTO client(nomClient, prenomClient, emailClient) VALUES (?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, cltPaticulier.getClientParticulierID());
 			ps.setString(1, cltPaticulier.getNomClient()); 
 			ps.setString(2, cltPaticulier.getPrenomClient());
-			ps.setString(3, cltPaticulier.getAdresseClient());
-			ps.setInt(4, cltPaticulier.getCodePostal());
-			ps.setString(5, cltPaticulier.getVille());
-			ps.setString(6, cltPaticulier.getTelClient());
-			ps.setString(7, cltPaticulier.getEmailClient());
-			
+			ps.setString(3, cltPaticulier.getEmailClient());
+
 			ps.executeUpdate();
-			
+
 			ps.close();
 			conn.close();
 			
@@ -314,19 +298,13 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO client(clientEntrepriseID, nomClient, prenomClient, adresseClient, codePostal, ville, telClient, emailClient) +"
-								+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			String requete = "INSERT INTO client(nomClient, prenomClient, emailClient) VALUES (?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, cltEntreprise.getClientEntrepriseID());
 			ps.setString(1, cltEntreprise.getNomClient()); 
 			ps.setString(2, cltEntreprise.getPrenomClient());
-			ps.setString(3, cltEntreprise.getAdresseClient());
-			ps.setInt(4, cltEntreprise.getCodePostal());
-			ps.setString(5, cltEntreprise.getVille());
-			ps.setString(6, cltEntreprise.getTelClient());
-			ps.setString(7, cltEntreprise.getEmailClient());
+			ps.setString(3, cltEntreprise.getEmailClient());
 			
 			ps.executeUpdate();
 			
@@ -406,8 +384,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE client SET nomClient = ?, prenomClient = ? " +
-							 " WHERE idClient = ? ";
+			String requete = "UPDATE client SET nomClient = ?, prenomClient = ? WHERE idClient = ? ";
 			PreparedStatement ps = conn.prepareStatement(requete);
 
 			ps.setString(1, clt.getNomClient());			
@@ -516,8 +493,7 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO compte(solde, dateOuverture) +"
-								+ " VALUES (?, ?)";
+			String requete = "INSERT INTO compte(solde, dateOuverture) VALUES (?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
@@ -544,8 +520,7 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO compte(solde, dateOuverture) +"
-								+ " VALUES (?, ?)";
+			String requete = "INSERT INTO compte(solde, dateOuverture) VALUES (?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
@@ -617,8 +592,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE compte SET solde = ?, dateOuverture = ? " +
-							 " WHERE idCompte = ? ";
+			String requete = "UPDATE compte SET solde = ?, dateOuverture = ? WHERE idCompte = ? ";
 			PreparedStatement ps = conn.prepareStatement(requete);
 
 			ps.setDouble(1, cpt.getSolde());			
@@ -718,16 +692,13 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO carte(cartePremierID, dateExpiration, cryptogramme, plafondPaiement, plafondRetrait) +"
-								+ " VALUES (?, ?, ?, ?)";
+			String requete = "INSERT INTO carte(dateExpiration, plafondPaiement, plafondRetrait) VALUES (?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, crtPremier.getIdCarte());
-			ps.setDate(2, (Date) crtPremier.getDateExpiration()); 
-			ps.setInt(3, crtPremier.getCryptogramme());
-			ps.setFloat(4, crtPremier.getPlafondPaiement());
-			ps.setFloat(5, crtPremier.getPlafondRetrait());
+			ps.setDate(1, (Date) crtPremier.getDateExpiration()); 
+			ps.setFloat(2, crtPremier.getPlafondPaiement());
+			ps.setFloat(3, crtPremier.getPlafondRetrait());
 			
 			ps.executeUpdate();
 			
@@ -749,16 +720,13 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO carte(carteElectronID, dateExpiration, cryptogramme, plafondPaiement, plafondRetrait) +"
-								+ " VALUES (?, ?, ?, ?)";
+			String requete = "INSERT INTO carte(dateExpiration, plafondPaiement, plafondRetrait) VALUES (?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, crtElectron.getIdCarte());
-			ps.setDate(2, (Date) crtElectron.getDateExpiration()); 
-			ps.setInt(3, crtElectron.getCryptogramme());
-			ps.setFloat(4, crtElectron.getPlafondPaiement());
-			ps.setFloat(5, crtElectron.getPlafondRetrait());
+			ps.setDate(1, (Date) crtElectron.getDateExpiration()); 
+			ps.setFloat(2, crtElectron.getPlafondPaiement());
+			ps.setFloat(3, crtElectron.getPlafondRetrait());
 			
 			ps.executeUpdate();
 			
@@ -831,8 +799,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE carte SET plafondPaiement = ?, plafondRetrait = ? " +
-							 " WHERE idCarte = ? ";
+			String requete = "UPDATE carte SET plafondPaiement = ?, plafondRetrait = ? WHERE idCarte = ? ";
 			PreparedStatement ps = conn.prepareStatement(requete);
 
 			ps.setDouble(1, crt.getPlafondPaiement());			
@@ -1245,8 +1212,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE employe SET employe.agenceId = ? " + 
-								"WHERE employe.idEmploye = ? ";
+			String requete = "UPDATE employe SET employe.agenceId = ? WHERE employe.idEmploye = ? ";
 			PreparedStatement ps = conn.prepareStatement(requete);		
 			ps.setInt(1, a.getIdAgence());
 			ps.setInt(2, epl.getIdEmploye());
@@ -1274,9 +1240,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "SELECT * FROM employe, agence " +
-								" WHERE agence.agenceId = employe.agenceId "+
-								" AND agenceId = ?";
+			String requete = "SELECT * FROM employe, agence WHERE agence.agenceId = employe.agenceId AND agenceId = ?";
 			PreparedStatement ps = conn.prepareStatement(requete);	
 			ps.setInt(1, idAgence);
 			ResultSet rs = ps.executeQuery();
@@ -1335,8 +1299,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE client SET client.employeId = ? " + 
-								"WHERE client.idClient = ? ";
+			String requete = "UPDATE client SET client.employeId = ? WHERE client.idClient = ? ";
 			PreparedStatement ps = conn.prepareStatement(requete);		
 			ps.setInt(1, epl.getIdEmploye());
 			ps.setInt(2, clt.getIdClient());
@@ -1366,9 +1329,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "SELECT * FROM employe, client " +
-								" WHERE employe.employeId = client.employeId "+
-								" AND employeId = ?";
+			String requete = "SELECT * FROM employe, client WHERE employe.employeId = client.employeId AND employeId = ?";
 			PreparedStatement ps = conn.prepareStatement(requete);	
 			ps.setInt(1, idEmploye);
 			ResultSet rs = ps.executeQuery();
@@ -1432,8 +1393,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE compte SET compte.clientId = ? " + 
-								"WHERE compte.idCompte = ? ";
+			String requete = "UPDATE compte SET compte.clientId = ? WHERE compte.idCompte = ?";
 			PreparedStatement ps = conn.prepareStatement(requete);		
 			ps.setInt(1, cpt.getIdCompte());
 			ps.setInt(2, clt.getIdClient());
@@ -1463,9 +1423,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "SELECT * FROM compte, client " +
-								" WHERE compte.clientId = client.clientId "+
-								" AND clientId = ?";
+			String requete = "SELECT * FROM compte, client WHERE compte.clientId = client.clientId AND clientId = ?";
 			PreparedStatement ps = conn.prepareStatement(requete);	
 			ps.setInt(1, idClient);
 			ResultSet rs = ps.executeQuery();
@@ -1544,8 +1502,7 @@ public class Dao implements Idao {
 
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 
-			String requete = "UPDATE carte SET carte.compteId = ? " + 
-								"WHERE carte.idCarte = ? ";
+			String requete = "UPDATE carte SET carte.compteId = ? WHERE carte.idCarte = ? ";
 			PreparedStatement ps = conn.prepareStatement(requete);		
 			ps.setInt(1, cpt.getIdCompte());
 			ps.setInt(2, crt.getIdCarte());
