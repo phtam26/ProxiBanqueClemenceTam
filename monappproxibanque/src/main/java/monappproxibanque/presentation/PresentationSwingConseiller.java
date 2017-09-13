@@ -25,6 +25,9 @@ public class PresentationSwingConseiller extends JFrame{
 	private JPanel panel4 = new JPanel();
 	
 	//onglet ajouter
+	private JPanel panelId1 = new JPanel();
+	private JTextField zonesaisieid1 = new JTextField(10);
+	private JLabel id1 = new JLabel("Id");
 	private JPanel panelnom = new JPanel();
 	private JPanel panelprenom = new JPanel();
 	private JPanel panelemail = new JPanel();
@@ -104,6 +107,8 @@ public class PresentationSwingConseiller extends JFrame{
 			zonesaisieprenom.setText("");
 			p.setEmailEmploye(zonesaisieemail.getText()); 
 			zonesaisieemail.setText("");
+			p.setIdEmploye(Integer.parseInt(zonesaisieid1.getText()));
+			zonesaisieid1.setText("");
 			//
 			ig.creerConseiller(p);
 		
@@ -158,6 +163,9 @@ public class PresentationSwingConseiller extends JFrame{
 	
 	//onglet ajouter
 	
+	panelId1.add(id1);
+	panelId1.add(zonesaisieid1);
+	
 	panelnom.add(nom);
 	panelnom.add(zonesaisienom);
 	
@@ -170,7 +178,7 @@ public class PresentationSwingConseiller extends JFrame{
 	panelbouton1.add(valider1);
 	
 	panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-
+	panel1.add(panelId1);
 	panel1.add(panelnom);
 	panel1.add(panelprenom);
 	panel1.add(panelemail);

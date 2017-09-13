@@ -27,6 +27,9 @@ public class PresentationSwingCompteCourant extends JFrame{
 	private JPanel panel4 = new JPanel();
 	
 	//onglet ajouter
+	private JPanel panelId1 = new JPanel();
+	private JTextField zonesaisieid1 = new JTextField(10);
+	private JLabel id1 = new JLabel("Id");
 	private JPanel panelsolde = new JPanel();
 	private JPanel paneldatedouverture = new JPanel();
 	
@@ -104,13 +107,8 @@ public class PresentationSwingCompteCourant extends JFrame{
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				p.setSolde(Integer.parseInt(zonesaisiesolde.getText()));
 				zonesaisiesolde.setText("");
-				try {
-					p.setDateOuverture(formatter.parse(zonesaisiedatedouverture.getText()));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
-				}
-				zonesaisiedatedouverture.setText("");
+				p.setIdCompte(Integer.parseInt(zonesaisieid1.getText()));
+				zonesaisieid1.setText("");
 				
 				
 				ig.creerCompteCourant(p);
@@ -140,16 +138,16 @@ public class PresentationSwingCompteCourant extends JFrame{
 				// TODO Auto-generated method stub
 				CompteCourant p = new CompteCourant();
 				
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				p.setIdCompte(Integer.parseInt(zonesaisiesolde3.getText()));
 				zonesaisiesolde3.setText("");
-				try {
+				/*try {
 					p.setDateOuverture(formatter.parse(zonesaisiedatedouverture3.getText()));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				zonesaisiedatedouverture3.setText("");
+				zonesaisiedatedouverture3.setText("");*/
 					
 				ig.modifierCompte(p);
 			
@@ -170,19 +168,21 @@ public class PresentationSwingCompteCourant extends JFrame{
 	
 	
 	//onglet ajouter
-	
+		panelId1.add(id1);
+		panelId1.add(zonesaisieid1);
+		
 		panelsolde.add(solde);
 		panelsolde.add(zonesaisiesolde);
 		
-		paneldatedouverture.add(datedouverture);
-		paneldatedouverture.add(zonesaisiedatedouverture);
+		//paneldatedouverture.add(datedouverture);
+		//paneldatedouverture.add(zonesaisiedatedouverture);
 		
 		panelbouton1.add(valider1);
 		
 		panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-
+		panel1.add(panelId1);
 		panel1.add(panelsolde);
-		panel1.add(paneldatedouverture);
+		//panel1.add(paneldatedouverture);
 		panel1.add(panelbouton1);
 		
 		
@@ -207,15 +207,15 @@ public class PresentationSwingCompteCourant extends JFrame{
 		panelsolde3.add(solde3);
 		panelsolde3.add(zonesaisiesolde3);
 		
-		paneldatedouverture3.add(datedouverture3);
-		paneldatedouverture3.add(zonesaisiedatedouverture3);
+		//paneldatedouverture3.add(datedouverture3);
+		//paneldatedouverture3.add(zonesaisiedatedouverture3);
 		
 		panelbouton3.add(valider3);
 		
 		panel3.setLayout(new BoxLayout(panel3, BoxLayout.PAGE_AXIS));
 		panel3.add(panelId3);
 		panel3.add(panelsolde3);
-		panel3.add(paneldatedouverture3);
+		//panel3.add(paneldatedouverture3);
 		panel3.add(panelbouton3);
 		
 		
