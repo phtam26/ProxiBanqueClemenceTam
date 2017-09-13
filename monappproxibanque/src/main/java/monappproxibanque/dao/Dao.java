@@ -1,7 +1,6 @@
 package monappproxibanque.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -256,6 +255,8 @@ public class Dao implements Idao {
 		return listeEmployes;
 	}
 	
+	
+	/*
 public int recupererIdClient(ClientParticulier cltParticulier) {
 	
 	int id = 0;
@@ -314,6 +315,8 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 	}	
 	}
 	
+*/	
+	
 /**
  * CRUD Client
  */
@@ -359,7 +362,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO client(idClient, nomClient, prenomClient, emailClient, idEntreprise) VALUES (?, ?, ?, ?, ?)";
+			String requete = "INSERT INTO client(idClient, nomClient, prenomClient, emailClient, idClientEntreprise) VALUES (?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
