@@ -491,7 +491,6 @@ public class Dao implements Idao {
 					cltEnt.setVille(rs.getString("ville"));
 					cltEnt.setTelClient(rs.getString("telClient"));
 					cltEnt.setEmailClient(rs.getString("emailClient"));
-					cltEnt.setMatricule(rs.getString("matriculeEntreprise"));
 					
 					}
 			}
@@ -710,17 +709,6 @@ public class Dao implements Idao {
 	
 	@Override
 	public void creerCartePremier(CarteVisaPremier crtPremier) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void creerCarteElectron(CarteVisaElectron crtElectron) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void creerCarte(Carte crt) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -730,15 +718,47 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO carte(dateExpiration, cryptogramme, plafondPaiement, plafondRetrait) +"
+			String requete = "INSERT INTO carte(cartePremierID, dateExpiration, cryptogramme, plafondPaiement, plafondRetrait) +"
 								+ " VALUES (?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setDate(1, (Date) crt.getDateExpiration()); 
-			ps.setInt(2, crt.getCryptogramme());
-			ps.setFloat(3, crt.getPlafondPaiement());
-			ps.setFloat(4, crt.getPlafondRetrait());
+			ps.setInt(1, crtPremier.getIdCarte());
+			ps.setDate(2, (Date) crtPremier.getDateExpiration()); 
+			ps.setInt(3, crtPremier.getCryptogramme());
+			ps.setFloat(4, crtPremier.getPlafondPaiement());
+			ps.setFloat(5, crtPremier.getPlafondRetrait());
+			
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+			
+		} catch (Exception e) {
+		}		
+
+	}
+	@Override
+	public void creerCarteElectron(CarteVisaElectron crtElectron) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+			
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+			
+			String requete = "INSERT INTO carte(carteElectronID, dateExpiration, cryptogramme, plafondPaiement, plafondRetrait) +"
+								+ " VALUES (?, ?, ?, ?)";
+			
+			PreparedStatement ps = conn.prepareStatement(requete);
+			
+			ps.setInt(1, crtElectron.getIdCarte());
+			ps.setDate(2, (Date) crtElectron.getDateExpiration()); 
+			ps.setInt(3, crtElectron.getCryptogramme());
+			ps.setFloat(4, crtElectron.getPlafondPaiement());
+			ps.setFloat(5, crtElectron.getPlafondRetrait());
 			
 			ps.executeUpdate();
 			
@@ -749,6 +769,7 @@ public class Dao implements Idao {
 		}		
 		
 	}
+
 	@Override
 	public Carte lireCarte(int idCarte) {
 		CarteVisaElectron crtElectron = new CarteVisaElectron();
@@ -795,9 +816,9 @@ public class Dao implements Idao {
 		}
 		
 		return crtElectron; // à revoir
-
-		
 	}
+	
+	
 	@Override
 	public void modifierCarte(Carte crt) {
 		try {
@@ -1041,7 +1062,6 @@ public class Dao implements Idao {
 						cltEnt.setVille(rs.getString("ville"));
 						cltEnt.setTelClient(rs.getString("telClient"));
 						cltEnt.setEmailClient(rs.getString("emailClient"));
-						cltEnt.setMatricule(rs.getString("matriculeEntreprise"));
 						
 						cltEnt.setMonConseiller(csl);
 					}
@@ -1239,39 +1259,311 @@ public class Dao implements Idao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
+	
 	@Override
 	public List<Employe> employesDeLAgence(int idAgence) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Employe> employesDeLAgence = new ArrayList<Employe>();
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+
+			String requete = "SELECT * FROM employe, agence " +
+								" WHERE agence.agenceId = employe.agenceId "+
+								" AND agenceId = ?";
+			PreparedStatement ps = conn.prepareStatement(requete);	
+			ps.setInt(1, idAgence);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				
+				int agenceID = rs.getInt("AgenceID");
+				Agence a = new Agence();
+				a.setIdAgence(agenceID);
+				
+				Gerant g = new Gerant();
+				Conseiller csl = new Conseiller();
+
+				if(rs.getInt("idEmploye") == rs.getInt("idGerant")) {
+
+					g.setNomEmploye(rs.getString("nomEmploye"));
+					g.setPrenomEmploye(rs.getString("prenomEmploye"));
+					g.setEmailEmploye(rs.getString("emailEmploye"));
+					g.setTelEmploye(rs.getString("telEmploye"));
+					g.setLogin(rs.getString("login"));
+					g.setMotDePasse(rs.getString("motDePasse"));
+					
+					employesDeLAgence.add(g);
+		
+				} else if(rs.getInt("idEmploye") == rs.getInt("idConseiller")) {
+
+					csl.setNomEmploye(rs.getString("nomEmploye"));
+					csl.setPrenomEmploye(rs.getString("prenomEmploye"));
+					csl.setEmailEmploye(rs.getString("emailEmploye"));
+					csl.setTelEmploye(rs.getString("telEmploye"));
+					csl.setLogin(rs.getString("login"));
+					csl.setMotDePasse(rs.getString("motDePasse"));	
+					
+					employesDeLAgence.add(csl);
+				}
+			}
+			
+			ps.close();
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employesDeLAgence;
 	}
+			
 	@Override
 	public void attribuerClientEmploye(Client clt, Employe epl) {
-		// TODO Auto-generated method stub
-		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+
+			String requete = "UPDATE client SET client.employeId = ? " + 
+								"WHERE client.idClient = ? ";
+			PreparedStatement ps = conn.prepareStatement(requete);		
+			ps.setInt(1, epl.getIdEmploye());
+			ps.setInt(2, clt.getIdClient());
+	
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+		
+
 	@Override
 	public List<Client> clientsDuConseiller(int idEmploye) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Client> clientsDuConseiller = new ArrayList<Client>();
+		
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+
+			String requete = "SELECT * FROM employe, client " +
+								" WHERE employe.employeId = client.employeId "+
+								" AND employeId = ?";
+			PreparedStatement ps = conn.prepareStatement(requete);	
+			ps.setInt(1, idEmploye);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				
+				int conseillerID = rs.getInt("conseillerID");
+				Conseiller csl = new Conseiller();
+				csl.setConseillerID(conseillerID);
+				
+				ClientParticulier cltPart = new ClientParticulier();
+				ClientEntreprise cltEnt = new ClientEntreprise();
+
+				if(rs.getInt("idClient") == rs.getInt("idClientParticulier")) {
+
+					cltPart.setIdClient(rs.getInt("idClient"));
+					cltPart.setNomClient(rs.getString("nomClient"));
+					cltPart.setPrenomClient(rs.getString("prenomClient"));
+					cltPart.setAdresseClient(rs.getString("adresseClient"));
+					cltPart.setCodePostal(rs.getInt("codePostal"));
+					cltPart.setVille(rs.getString("ville"));
+					cltPart.setTelClient(rs.getString("telClient"));
+					cltPart.setEmailClient(rs.getString("emailClient"));
+					
+					clientsDuConseiller.add(cltPart);
+
+				} else if(rs.getInt("idClient") == rs.getInt("idClientEntreprise")) {
+
+					cltEnt.setIdClient(rs.getInt("idClient"));
+					cltEnt.setNomClient(rs.getString("nomClient"));
+					cltEnt.setPrenomClient(rs.getString("prenomClient"));
+					cltEnt.setAdresseClient(rs.getString("adresseClient"));
+					cltEnt.setCodePostal(rs.getInt("codePostal"));
+					cltEnt.setVille(rs.getString("ville"));
+					cltEnt.setTelClient(rs.getString("telClient"));
+					cltEnt.setEmailClient(rs.getString("emailClient"));
+
+					clientsDuConseiller.add(cltEnt);
+			}
+			
+			ps.close();
+			conn.close();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return clientsDuConseiller;
 	}
+	
 	@Override
 	public void attribuerCompteClient(Compte cpt, Client clt) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public List<Compte> comptesDuClient(int idClient) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void attribuerCarteCompte(Carte crt, Compte cpt) {
-		// TODO Auto-generated method stub
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+
+			String requete = "UPDATE compte SET compte.clientId = ? " + 
+								"WHERE compte.idCompte = ? ";
+			PreparedStatement ps = conn.prepareStatement(requete);		
+			ps.setInt(1, cpt.getIdCompte());
+			ps.setInt(2, clt.getIdClient());
+	
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
+	@Override
+	public List<Compte> comptesDuClient(int idClient) {
+		List<Compte> comptesDuClient = new ArrayList<Compte>();
+		
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+
+			String requete = "SELECT * FROM compte, client " +
+								" WHERE compte.clientId = client.clientId "+
+								" AND clientId = ?";
+			PreparedStatement ps = conn.prepareStatement(requete);	
+			ps.setInt(1, idClient);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+
+				if(rs.getInt("particulierID") != 0) {
+					int clientID = rs.getInt("clientID");
+					ClientParticulier cltPart = new ClientParticulier();
+					cltPart.setIdClient(clientID);
+					
+					if(rs.getInt("idCompte") == rs.getInt("idCompteCourant")) {
+						CompteCourant cptCourant = new CompteCourant();
+							
+						cptCourant.setSolde(rs.getDouble("solde"));
+						cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
+						cptCourant.setMonProprietaire(cltPart);
+						
+						comptesDuClient.add(cptCourant);
+								
+						} else if(rs.getInt("idCompte") == rs.getInt("idCompteEpargne")) {
+							CompteEpargne cptEpargne = new CompteEpargne();
+							
+							cptEpargne.setSolde(rs.getDouble("solde"));
+							cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
+							cptEpargne.setMonProprietaire(cltPart);
+							
+							comptesDuClient.add(cptEpargne);
+						}
+					
+				} else if(rs.getInt("entrepriseID") != 0) {
+					int clientID = rs.getInt("clientID");
+					ClientEntreprise cltEnt = new ClientEntreprise();
+					cltEnt.setIdClient(clientID);
+					
+					if(rs.getInt("idCompte") == rs.getInt("idCompteCourant")) {
+						CompteCourant cptCourant = new CompteCourant();
+							
+						cptCourant.setSolde(rs.getDouble("solde"));
+						cptCourant.setDateOuverture(rs.getDate("dateOuverture"));
+						cptCourant.setMonProprietaire(cltEnt);
+						
+						comptesDuClient.add(cptCourant);
+						
+						} else if(rs.getInt("idCompte") == rs.getInt("idCompteEpargne")) {
+							CompteEpargne cptEpargne = new CompteEpargne();
+							
+							cptEpargne.setSolde(rs.getDouble("solde"));
+							cptEpargne.setDateOuverture(rs.getDate("dateOuverture"));
+							cptEpargne.setMonProprietaire(cltEnt);
+							
+							comptesDuClient.add(cptEpargne);
+						}
+			}
+			
+			ps.close();
+			conn.close();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return comptesDuClient;
+	}
+
+	@Override
+	public void attribuerCarteCompte(Carte crt, Compte cpt) {
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+
+			String requete = "UPDATE carte SET carte.compteId = ? " + 
+								"WHERE carte.idCarte = ? ";
+			PreparedStatement ps = conn.prepareStatement(requete);		
+			ps.setInt(1, cpt.getIdCompte());
+			ps.setInt(2, crt.getIdCarte());
+	
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+
+
 	
 	
 	
