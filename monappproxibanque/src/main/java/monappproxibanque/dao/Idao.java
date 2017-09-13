@@ -24,6 +24,8 @@ import monappproxibanque.metier.Gerant;
 
 public interface Idao {
 	
+	public boolean seConnecter(String loginEmploye, String motDePasse);
+	
 	public void creerConseiller(Conseiller csl);
 	public void creerGerant(Gerant g);
 	public Employe lireEmploye(int idEmploye);
@@ -69,8 +71,6 @@ public interface Idao {
 	
 	
 // pas encore developper les methodes ci-dessous, a part les sysout
-	
-	public void seConnecter(String loginEmploye, String passwordEmploye);
 	
 	public void faireVirement(Compte cpt1, Compte cpt2);
 	public void activerCarte(Carte crt);

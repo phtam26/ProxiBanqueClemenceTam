@@ -42,7 +42,7 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO employe(idEmploye, nomEmploye, prenomEmploye, emailEmploye, idConseiller) VALUES (?, ?, ?, ?, ?)";
+			String requete = "INSERT INTO employe(idEmploye, nomEmploye, prenomEmploye, emailEmploye, loginEmploye, motDePasse, idConseiller) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
@@ -50,7 +50,9 @@ public class Dao implements Idao {
 			ps.setString(2, csl.getNomEmploye()); 
 			ps.setString(3, csl.getPrenomEmploye());
 			ps.setString(4, csl.getEmailEmploye());
-			ps.setInt(5, csl.getIdEmploye());
+			ps.setString(5, csl.getLoginEmploye()); 
+			ps.setString(6, csl.getMotDePasse()); 
+			ps.setInt(7, csl.getIdEmploye());
 
 			ps.executeUpdate();
 			
@@ -74,7 +76,7 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO employe(idEmploye, nomEmploye, prenomEmploye, emailEmploye, idGerant) VALUES (?, ?, ?, ?, ?)";
+			String requete = "INSERT INTO employe(idEmploye, nomEmploye, prenomEmploye, emailEmploye, loginEmploye, motDePasse, idGerant) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
@@ -82,7 +84,9 @@ public class Dao implements Idao {
 			ps.setString(2, g.getNomEmploye()); 
 			ps.setString(3, g.getPrenomEmploye());
 			ps.setString(4, g.getEmailEmploye());
-			ps.setInt(5, g.getIdEmploye());
+			ps.setString(5, g.getLoginEmploye()); 
+			ps.setString(6, g.getMotDePasse()); 
+			ps.setInt(7, g.getIdEmploye());
 			
 			ps.executeUpdate();
 			
@@ -120,7 +124,7 @@ public class Dao implements Idao {
 					g.setPrenomEmploye(rs.getString("prenomEmploye"));
 					g.setEmailEmploye(rs.getString("emailEmploye"));
 					g.setTelEmploye(rs.getString("telEmploye"));
-					g.setLogin(rs.getString("login"));
+					g.setLoginEmploye(rs.getString("login"));
 					g.setMotDePasse(rs.getString("motDePasse"));
 		
 				} else if(rs.getInt("idEmploye") == rs.getInt("idConseiller")) {
@@ -129,7 +133,7 @@ public class Dao implements Idao {
 					csl.setPrenomEmploye(rs.getString("prenomEmploye"));
 					csl.setEmailEmploye(rs.getString("emailEmploye"));
 					csl.setTelEmploye(rs.getString("telEmploye"));
-					csl.setLogin(rs.getString("login"));
+					csl.setLoginEmploye(rs.getString("login"));
 					csl.setMotDePasse(rs.getString("motDePasse"));	
 				}
 				
@@ -229,7 +233,7 @@ public class Dao implements Idao {
 					g.setPrenomEmploye(rs.getString("prenomEmploye"));
 					g.setEmailEmploye(rs.getString("emailEmploye"));
 					g.setTelEmploye(rs.getString("telEmploye"));
-					g.setLogin(rs.getString("login"));
+					g.setLoginEmploye(rs.getString("login"));
 					g.setMotDePasse(rs.getString("motDePasse"));
 					listeEmployes.add(g);
 					
@@ -240,7 +244,7 @@ public class Dao implements Idao {
 					csl.setPrenomEmploye(rs.getString("prenomEmploye"));
 					csl.setEmailEmploye(rs.getString("emailEmploye"));
 					csl.setTelEmploye(rs.getString("telEmploye"));
-					csl.setLogin(rs.getString("login"));
+					csl.setLoginEmploye(rs.getString("login"));
 					csl.setMotDePasse(rs.getString("motDePasse"));	
 					listeEmployes.add(csl);
 					}			
@@ -1322,7 +1326,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					g.setPrenomEmploye(rs.getString("prenomEmploye"));
 					g.setEmailEmploye(rs.getString("emailEmploye"));
 					g.setTelEmploye(rs.getString("telEmploye"));
-					g.setLogin(rs.getString("login"));
+					g.setLoginEmploye(rs.getString("login"));
 					g.setMotDePasse(rs.getString("motDePasse"));
 					
 					employesDeLAgence.add(g);
@@ -1333,7 +1337,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					csl.setPrenomEmploye(rs.getString("prenomEmploye"));
 					csl.setEmailEmploye(rs.getString("emailEmploye"));
 					csl.setTelEmploye(rs.getString("telEmploye"));
-					csl.setLogin(rs.getString("login"));
+					csl.setLoginEmploye(rs.getString("login"));
 					csl.setMotDePasse(rs.getString("motDePasse"));	
 					
 					employesDeLAgence.add(csl);
@@ -1593,9 +1597,38 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
  * L'utilisateur doit s'authentifier avant de pouvoir utiliser d'autres fonctionnalites.
  */
 	@Override
-	public void seConnecter(String loginEmploye, String passwordEmploye) {
+	public boolean seConnecter(String loginEmploye, String motDePasse) {
+		
+		boolean rep = false;
+		
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
 			
-		System.out.println("L'employe se connecte.");
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+
+			String requete = "SELECT motDePasse FROM employe WHERE loginEmploye = ?";
+			PreparedStatement ps = conn.prepareStatement(requete);	
+			ps.setString(1, loginEmploye);
+			
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+
+			if(loginEmploye == rs.getString("loginEmploye")) {
+				rep = true;
+			} else rep = false;
+			
+			ps.close();
+			conn.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rep;
 	}	
 /**
  * La methode faireVirement permet d'effectuer un virement entre un compte emetteur et un compte receveur.

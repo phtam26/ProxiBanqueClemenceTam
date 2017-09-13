@@ -139,16 +139,10 @@ public class ServiceImpl implements IConseiller , IGerant {
 		dao.supprimerCompte(idCompte);
 	}
 
-	@Override
-	public int recupererIdClient(ClientParticulier cltParticulier) {
-		// TODO Auto-generated method stub
-		return dao.recupererIdClient(cltParticulier);
-	}
 
 	@Override
-	public void updateIdClientParticulier(int id) {
-		// TODO Auto-generated method stub
-		dao.updateIdClientParticulier(id);
+	public boolean seConnecter(String loginEmploye, String motDePasse) {
+		return dao.seConnecter(loginEmploye, motDePasse);
 	}
 
 	
