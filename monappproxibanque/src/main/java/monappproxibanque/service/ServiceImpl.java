@@ -141,7 +141,7 @@ public class ServiceImpl implements IConseiller , IGerant {
 
 
 	@Override
-	public boolean seConnecter(String loginEmploye, String motDePasse) {
+	public String seConnecter(String loginEmploye, String motDePasse) {
 		return dao.seConnecter(loginEmploye, motDePasse);
 	}
 

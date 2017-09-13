@@ -7,7 +7,7 @@ import monappproxibanque.metier.Gerant;
 
 public interface IGerant extends IConseiller {
 
-	public boolean seConnecter(String loginEmploye, String motDePasse);
+	public String seConnecter(String loginEmploye, String motDePasse);
 	public void creerConseiller(Conseiller csl);
 	public void creerGerant(Gerant g);
 	public Employe lireEmploye(int idEmploye);
