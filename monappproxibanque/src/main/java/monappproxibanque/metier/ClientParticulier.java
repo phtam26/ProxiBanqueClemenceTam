@@ -5,5 +5,17 @@ package monappproxibanque.metier;
  *
  */
 public class ClientParticulier extends Client {
+	
+	private int ClientParticulierID;
+
+	public int getClientParticulierID() {
+		return ClientParticulierID;
+	}
+
+	public void setClientParticulierID(int clientParticulierID) {
+		ClientParticulierID = clientParticulierID;
+	}
+	
+	
 
 }

@@ -9,12 +9,21 @@ import java.util.List;
  */
 public class Gerant extends Employe {
 	
+	private int GerantID;
 	private List<Conseiller> conseillers = new ArrayList<Conseiller>();
 
 	public Gerant() {
 		super();
 	}
 
+	public int getGerantID() {
+		return GerantID;
+	}
+
+	public void setGerantID(int gerantID) {
+		GerantID = gerantID;
+	}
+	
 	public List<Conseiller> getConseillers() {
 		return conseillers;
 	}

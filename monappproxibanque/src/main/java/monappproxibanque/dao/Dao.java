@@ -48,13 +48,13 @@ public class Dao implements Idao {
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setString(1, csl.getConseillerID);
-			ps.setString(1, csl.getNomEmploye()); 
-			ps.setString(2, csl.getPrenomEmploye());
-			ps.setString(3, csl.getEmailEmploye());
-			ps.setString(4, csl.getTelEmploye());
-			ps.setString(5, csl.getLogin());
-			ps.setString(6, csl.getMotDePasse());
+			ps.setInt(1, csl.getConseillerID());
+			ps.setString(2, csl.getNomEmploye()); 
+			ps.setString(3, csl.getPrenomEmploye());
+			ps.setString(4, csl.getEmailEmploye());
+			ps.setString(5, csl.getTelEmploye());
+			ps.setString(6, csl.getLogin());
+			ps.setString(7, csl.getMotDePasse());
 			
 			ps.executeUpdate();
 			
@@ -65,6 +65,41 @@ public class Dao implements Idao {
 		}		
 		
 	}
+	
+	@Override
+	public void creerGerant(Gerant g) {
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+			
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+			
+			String requete = "INSERT INTO employe(gerantID, nomEmploye, prenomEmploye, emailEmploye, telEmploye, login, motDePasse) +"
+								+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
+			
+			PreparedStatement ps = conn.prepareStatement(requete);
+			
+			ps.setInt(1, g.getGerantID());
+			ps.setString(2, g.getNomEmploye()); 
+			ps.setString(3, g.getPrenomEmploye());
+			ps.setString(4, g.getEmailEmploye());
+			ps.setString(5, g.getTelEmploye());
+			ps.setString(6, g.getLogin());
+			ps.setString(7, g.getMotDePasse());
+			
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+			
+		} catch (Exception e) {
+		}		
+	}
+	
 	@Override
 	public Employe lireEmploye(int idEmploye) {
 		
@@ -235,7 +270,7 @@ public class Dao implements Idao {
  */
 	
 	@Override
-	public void creerClient(Client clt) {
+	public void creerClientParticulier(ClientParticulier cltPaticulier) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -245,18 +280,19 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO client(nomClient, prenomClient, adresseClient, codePostal, ville, telClient, emailClient) +"
-								+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String requete = "INSERT INTO client(clientParticulierID, nomClient, prenomClient, adresseClient, codePostal, ville, telClient, emailClient) +"
+								+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setString(1, clt.getNomClient()); 
-			ps.setString(2, clt.getPrenomClient());
-			ps.setString(3, clt.getAdresseClient());
-			ps.setInt(4, clt.getCodePostal());
-			ps.setString(5, clt.getVille());
-			ps.setString(6, clt.getTelClient());
-			ps.setString(7, clt.getEmailClient());
+			ps.setInt(1, cltPaticulier.getClientParticulierID());
+			ps.setString(1, cltPaticulier.getNomClient()); 
+			ps.setString(2, cltPaticulier.getPrenomClient());
+			ps.setString(3, cltPaticulier.getAdresseClient());
+			ps.setInt(4, cltPaticulier.getCodePostal());
+			ps.setString(5, cltPaticulier.getVille());
+			ps.setString(6, cltPaticulier.getTelClient());
+			ps.setString(7, cltPaticulier.getEmailClient());
 			
 			ps.executeUpdate();
 			
@@ -265,9 +301,44 @@ public class Dao implements Idao {
 			
 		} catch (Exception e) {
 		}		
-	
+			
 	}
+	@Override
+	public void creerClientEntreprise(ClientEntreprise cltEntreprise) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+			
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+			
+			String requete = "INSERT INTO client(clientEntrepriseID, nomClient, prenomClient, adresseClient, codePostal, ville, telClient, emailClient) +"
+								+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			PreparedStatement ps = conn.prepareStatement(requete);
+			
+			ps.setInt(1, cltEntreprise.getClientEntrepriseID());
+			ps.setString(1, cltEntreprise.getNomClient()); 
+			ps.setString(2, cltEntreprise.getPrenomClient());
+			ps.setString(3, cltEntreprise.getAdresseClient());
+			ps.setInt(4, cltEntreprise.getCodePostal());
+			ps.setString(5, cltEntreprise.getVille());
+			ps.setString(6, cltEntreprise.getTelClient());
+			ps.setString(7, cltEntreprise.getEmailClient());
+			
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+			
+		} catch (Exception e) {
+		}		
 
+		
+	}
+	
 	@Override
 	public Client lireClient(int idClient) {
 		ClientParticulier cltPart = new ClientParticulier();
@@ -309,7 +380,6 @@ public class Dao implements Idao {
 					cltEnt.setVille(rs.getString("ville"));
 					cltEnt.setTelClient(rs.getString("telClient"));
 					cltEnt.setEmailClient(rs.getString("emailClient"));
-					cltEnt.setMatricule(rs.getString("matriculeEntreprise"));
 					
 					}
 				
@@ -435,6 +505,17 @@ public class Dao implements Idao {
 /**
  * CRUD Compte	
  */
+	
+	@Override
+	public void creerCompteCourant(CompteCourant cptCourant) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void creerCompteEpargne(CompteEpargne cptEpargne) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	@Override
 	public void creerCompte(Compte cpt) {
@@ -607,6 +688,17 @@ public class Dao implements Idao {
 /**
  * CRUD Carte	
  */
+	
+	@Override
+	public void creerCartePremier(CarteVisaPremier crtPremier) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void creerCarteElectron(CarteVisaElectron crtElectron) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	@Override
 	public void creerCarte(Carte crt) {
