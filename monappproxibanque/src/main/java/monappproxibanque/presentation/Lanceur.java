@@ -7,7 +7,7 @@ public class Lanceur {
 		//creation de la fenetre swing
 		
 		
-		PresentationSwingAccueil f = new PresentationSwingAccueil() ;
+		PresentationSwingseconnecter f = new PresentationSwingseconnecter() ;
 		
 		f.setVisible(true);
 		

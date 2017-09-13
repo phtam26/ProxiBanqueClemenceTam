@@ -25,6 +25,14 @@ public class PresentationSwingGerant extends JFrame{
 	private JPanel panel4 = new JPanel();
 	
 	//onglet ajouter
+	private JPanel panellogin = new JPanel();
+	private JTextField zonesaisielogin = new JTextField(10);
+	private JLabel login = new JLabel("Login");
+	
+	private JPanel panelmdp = new JPanel();
+	private JTextField zonesaisiemdp = new JTextField(10);
+	private JLabel mdp = new JLabel("Mot de passe");
+	
 	private JPanel panelId1 = new JPanel();
 	private JTextField zonesaisieid1 = new JTextField(10);
 	private JLabel id1 = new JLabel("Id");
@@ -109,6 +117,10 @@ public class PresentationSwingGerant extends JFrame{
 			zonesaisieemail.setText("");
 			p.setIdEmploye(Integer.parseInt(zonesaisieid1.getText()));
 			zonesaisieid1.setText("");
+			p.setLoginEmploye(zonesaisieid1.getText());
+			zonesaisielogin.setText("");
+			p.setMotDePasse(zonesaisieid1.getText());
+			zonesaisiemdp.setText("");
 			//
 			ig.creerGerant(p);
 		
@@ -174,6 +186,11 @@ public class PresentationSwingGerant extends JFrame{
 	panelemail.add(email);
 	panelemail.add(zonesaisieemail);
 	
+	panellogin.add(login);
+	panellogin.add(zonesaisielogin);
+	panelmdp.add(mdp);
+	panelmdp.add(zonesaisiemdp);
+	
 	panelbouton1.add(valider1);
 	
 	panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
@@ -181,6 +198,8 @@ public class PresentationSwingGerant extends JFrame{
 	panel1.add(panelnom);
 	panel1.add(panelprenom);
 	panel1.add(panelemail);
+	panel1.add(panellogin);
+	panel1.add(panelmdp);
 	panel1.add(panelbouton1);
 	
 	
