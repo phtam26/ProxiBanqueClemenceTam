@@ -88,7 +88,7 @@ public abstract class Employe {
 	@Override
 	public String toString() {
 		return "Employe [idEmploye=" + idEmploye + ", nomEmploye=" + nomEmploye + ", prenomEmploye=" + prenomEmploye
-				+ ", emailEmploye=" + emailEmploye + ", telEmploye=" + telEmploye + ", loginEmploye=" + loginEmploye
-				+ ", motDePasse=" + motDePasse + ", monAgence=" + monAgence + "]";
+				+ ", emailEmploye=" + emailEmploye + ", loginEmploye=" + loginEmploye
+				+ ", motDePasse=" + motDePasse ;
 	}
 }

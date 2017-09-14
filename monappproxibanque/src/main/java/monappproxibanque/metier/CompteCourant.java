@@ -14,7 +14,7 @@ public class CompteCourant extends Compte {
 
 	@Override
 	public String toString() {
-		return "CompteCourant [decouvert=" + decouvert + "]";
+		return "CompteCourant [decouvert=" + decouvert + super.toString()+ "]";
 	}
 
 

@@ -111,9 +111,7 @@ public abstract class Client {
 
 	@Override
 	public String toString() {
-		return "Client [idClient=" + idClient + ", nomClient=" + nomClient + ", prenomClient=" + prenomClient
-				+ ", adresseClient=" + adresseClient + ", codePostal=" + codePostal + ", ville=" + ville
-				+ ", telClient=" + telClient + ", emailClient=" + emailClient + ", monConseiller=" + monConseiller
-				+ ", comptes=" + comptes + "]";
+		return "Client [nomClient=" + nomClient + ", prenomClient=" + prenomClient + ", emailClient=" + emailClient
+				+ "]";
 	}
 }

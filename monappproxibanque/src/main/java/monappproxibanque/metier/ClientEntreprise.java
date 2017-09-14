@@ -16,5 +16,10 @@ public class ClientEntreprise extends Client {
 		this.clientEntrepriseID = clientEntrepriseID;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
 	
 }

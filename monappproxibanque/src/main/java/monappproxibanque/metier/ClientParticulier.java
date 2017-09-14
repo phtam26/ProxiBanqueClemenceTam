@@ -15,6 +15,11 @@ public class ClientParticulier extends Client {
 	public void setClientParticulierID(int clientParticulierID) {
 		ClientParticulierID = clientParticulierID;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 	
 	
 

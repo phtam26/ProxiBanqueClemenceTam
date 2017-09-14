@@ -564,6 +564,8 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					cltPart.setVille(rs.getString("ville"));
 					cltPart.setTelClient(rs.getString("telClient"));
 					cltPart.setEmailClient(rs.getString("emailClient"));
+					
+					listeClients.add(cltPart);
 		
 				} else if(rs.getInt("idClient") == rs.getInt("idClientEntreprise")) {
 
@@ -576,6 +578,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					cltEnt.setTelClient(rs.getString("telClient"));
 					cltEnt.setEmailClient(rs.getString("emailClient"));
 					
+					listeClients.add(cltEnt);
 					}
 			}
 			
@@ -768,10 +771,12 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 				if(rs.getInt("idCompte") == rs.getInt("idCompteCourant")) {
 
 					cptCourant.setSolde(rs.getDouble("solde"));
+					listeComptes.add(cptCourant);
 							
 					} else if(rs.getInt("idCompte") == rs.getInt("idCompteEpargne")) {
 
 					cptEpargne.setSolde(rs.getDouble("solde"));
+					listeComptes.add(cptEpargne);
 				}
 			}
 			
@@ -974,6 +979,8 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					crtPremier.setCryptogramme(rs.getInt("cryptogramme"));
 					crtPremier.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 					crtPremier.setPlafondRetrait(rs.getFloat("plafondRetrait"));
+					
+					listeCartes.add(crtPremier);
 		
 					} else if(rs.getInt("idCarte") == rs.getInt("idCarteElectron")) {
 
@@ -981,6 +988,8 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 					crtElectron.setCryptogramme(rs.getInt("cryptogramme"));
 					crtElectron.setPlafondPaiement(rs.getFloat("plafondPaiement"));
 					crtElectron.setPlafondRetrait(rs.getFloat("plafondRetrait"));
+					
+					listeCartes.add(crtElectron);
 					
 					}
 			}

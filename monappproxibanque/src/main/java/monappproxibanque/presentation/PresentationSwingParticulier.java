@@ -159,7 +159,7 @@ public class PresentationSwingParticulier extends JFrame {
 			// TODO Auto-generated method stub
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
-			
+			zonesaisieid4.setText("");
 			ic.supprimerClient(id);
 		
 		}});

@@ -14,7 +14,7 @@ public class CompteEpargne extends Compte {
 
 	@Override
 	public String toString() {
-		return "CompteEpargne [taux=" + taux + "]";
+		return "CompteEpargne [taux=" + taux + super.toString()+"]";
 	}
 
 	
