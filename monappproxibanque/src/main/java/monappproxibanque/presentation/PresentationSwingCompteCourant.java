@@ -1,6 +1,7 @@
 package monappproxibanque.presentation;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import monappproxibanque.metier.ClientParticulier;
 import monappproxibanque.metier.CompteCourant;
 import monappproxibanque.metier.CompteEpargne;
 import monappproxibanque.metier.Conseiller;
@@ -29,7 +31,7 @@ public class PresentationSwingCompteCourant extends JFrame{
 	//onglet ajouter
 	private JPanel panelId1 = new JPanel();
 	private JTextField zonesaisieid1 = new JTextField(10);
-	private JLabel id1 = new JLabel("Id");
+	private JLabel id1 = new JLabel("Id du client");
 	private JPanel panelsolde = new JPanel();
 	private JPanel paneldatedouverture = new JPanel();
 	
@@ -99,19 +101,21 @@ public class PresentationSwingCompteCourant extends JFrame{
 		
 		//ajouter
 		valider1.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				CompteCourant p = new CompteCourant();
+				ClientParticulier c = new ClientParticulier(); //exemple pas d'importance du type de client
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				p.setSolde(Integer.parseInt(zonesaisiesolde.getText()));
 				zonesaisiesolde.setText("");
-				p.setIdCompte(Integer.parseInt(zonesaisieid1.getText()));
+				c.setIdClient(Integer.parseInt(zonesaisieid1.getText()));
 				zonesaisieid1.setText("");
 				
 				
-				ig.creerCompteCourant(p);
+				ig.creerCompte(p,c);
+				ig.creerCompteCourant(p, c);
 			
 			}});
 		
@@ -139,7 +143,9 @@ public class PresentationSwingCompteCourant extends JFrame{
 				CompteCourant p = new CompteCourant();
 				
 				//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-				p.setIdCompte(Integer.parseInt(zonesaisiesolde3.getText()));
+				p.setIdCompte(Integer.parseInt(zonesaisieid3.getText()));
+				p.setSolde(Integer.parseInt(zonesaisiesolde3.getText()));
+				zonesaisieid3.setText("");
 				zonesaisiesolde3.setText("");
 				/*try {
 					p.setDateOuverture(formatter.parse(zonesaisiedatedouverture3.getText()));
@@ -161,7 +167,7 @@ public class PresentationSwingCompteCourant extends JFrame{
 				// TODO Auto-generated method stub
 				int id;
 				id=(Integer.parseInt(zonesaisieid4.getText()));
-				
+				zonesaisieid4.setText("");
 				ig.supprimerCompte(id);
 			
 			}});

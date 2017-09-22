@@ -13,10 +13,10 @@ import monappproxibanque.metier.Employe;
 
 public interface IConseiller {
 	
-	public String seConnecter(String loginEmploye, String motDePasse);
+	public boolean seConnecter(String loginEmploye, String motDePasse);
 	
 	//client
-
+	public void creerClient(Client clt);
 	public void creerClientParticulier(ClientParticulier cltPaticulier);
 //	public int recupererIdClient(ClientParticulier cltParticulier);
 //	public void updateIdClientParticulier(int id);
@@ -31,8 +31,9 @@ public interface IConseiller {
 	public void modifierCarte(Carte crt);
 	public void supprimerCarte(int idCarte);
 	
-	public void creerCompteCourant(CompteCourant cptCourant);
-	public void creerCompteEpargne(CompteEpargne cptEpargne);
+	public void creerCompte(Compte cpt, Client c);
+	public void creerCompteCourant(CompteCourant cptCourant,Client c);
+	public void creerCompteEpargne(CompteEpargne cptEpargne, Client c);
 	public Compte lireCompte(int idCompte);
 	public void modifierCompte(Compte cpt);
 	public void supprimerCompte(int idCompte);

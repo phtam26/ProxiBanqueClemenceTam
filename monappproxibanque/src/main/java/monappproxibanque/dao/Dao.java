@@ -23,6 +23,7 @@ import monappproxibanque.metier.Gerant;
 
 /**
  * La classe Dao permet represente toutes les fonctionnalites du programme.
+ * 
  * @author Tam
  *
  */
@@ -32,9 +33,9 @@ public class Dao implements Idao {
 	 * L'utilisateur doit s'authentifier avant de pouvoir utiliser d'autres fonctionnalites.
 	 */
 		@Override
-		public String seConnecter(String loginEmploye, String motDePasse) {
+		public boolean seConnecter(String loginEmploye, String motDePasse) {
 
-			String combosql = null;
+			boolean rep=false;
 			try {
 
 				Class.forName("com.mysql.jdbc.Driver");
@@ -55,22 +56,85 @@ public class Dao implements Idao {
 
 				String mdpsql = rs.getString("motDePasse"); 
 				String loginsql = rs.getString("loginEmploye");
-				combosql = mdpsql + " " +loginsql;
+				
+				if(mdpsql!="" && loginsql!="") {
+					rep=true;
+					System.out.println(rep);
+				}
 				
 				ps.close();
 				conn.close();
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
-			return combosql;
+			return rep;
 		}	
+	
+		
+		
+		public void creerConseiller(Conseiller p) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				
+				String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+				String login = "root";
+				String mdp = "";
+				
+				Connection conn = DriverManager.getConnection(adresse, login, mdp);
+				
+				String requete1 = "UPDATE `employe` SET idConseiller=idEmploye WHERE `nomEmploye`=? AND `prenomEmploye`=? AND `loginEmploye`=?";
+				
+				PreparedStatement ps = conn.prepareStatement(requete1);
+				
+				ps.setString(1, p.getNomEmploye()); 
+				ps.setString(2, p.getPrenomEmploye()); 
+				ps.setString(3, p.getLoginEmploye());
+				
+				ps.executeUpdate();
+				
+				ps.close();
+				conn.close();
+				
+			} catch (Exception e) {
+			}		
+			
+		}
+		
+		public void creerGerant(Gerant g) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				
+				String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+				String login = "root";
+				String mdp = "";
+				
+				Connection conn = DriverManager.getConnection(adresse, login, mdp);
+				
+				String requete1 = "UPDATE `employe` SET idGerant=idEmploye WHERE `nomEmploye`=? AND `prenomEmploye`=? AND `loginEmploye`=?";
+				
+				PreparedStatement ps = conn.prepareStatement(requete1);
+				
+				ps.setString(1, g.getNomEmploye()); 
+				ps.setString(2, g.getPrenomEmploye()); 
+				ps.setString(3, g.getLoginEmploye());
+				
+				ps.executeUpdate();
+				
+				ps.close();
+				conn.close();
+				
+			} catch (Exception e) {
+			}		
+			
+		}
+		
 	
 /**
  * CRUD Employe	
  */
 	@Override
-	public void creerConseiller(Conseiller csl) {
+	public void creerEmploye(Employe e) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -80,60 +144,27 @@ public class Dao implements Idao {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO employe(idEmploye, nomEmploye, prenomEmploye, emailEmploye, loginEmploye, motDePasse, idConseiller) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String requete1 = "INSERT INTO employe(nomEmploye, prenomEmploye, emailEmploye, loginEmploye, motDePasse) VALUES ( ?, ?, ?, ?, ?)";
 			
-			PreparedStatement ps = conn.prepareStatement(requete);
+			PreparedStatement ps = conn.prepareStatement(requete1);
 			
-			ps.setInt(1, csl.getIdEmploye());
-			ps.setString(2, csl.getNomEmploye()); 
-			ps.setString(3, csl.getPrenomEmploye());
-			ps.setString(4, csl.getEmailEmploye());
-			ps.setString(5, csl.getLoginEmploye()); 
-			ps.setString(6, csl.getMotDePasse()); 
-			ps.setInt(7, csl.getIdEmploye());
-
+			ps.setString(1, e.getNomEmploye()); 
+			ps.setString(2, e.getPrenomEmploye());
+			ps.setString(3, e.getEmailEmploye());
+			ps.setString(4, e.getLoginEmploye()); 
+			ps.setString(5, e.getMotDePasse()); 
+			
+			
 			ps.executeUpdate();
 			
 			ps.close();
 			conn.close();
 			
-		} catch (Exception e) {
+		} catch (Exception e1) {
 		}		
 		
 	}
 	
-	@Override
-	public void creerGerant(Gerant g) {
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			
-			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
-			String login = "root";
-			String mdp = "";
-			
-			Connection conn = DriverManager.getConnection(adresse, login, mdp);
-			
-			String requete = "INSERT INTO employe(idEmploye, nomEmploye, prenomEmploye, emailEmploye, loginEmploye, motDePasse, idGerant) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			
-			PreparedStatement ps = conn.prepareStatement(requete);
-			
-			ps.setInt(1, g.getIdEmploye());
-			ps.setString(2, g.getNomEmploye()); 
-			ps.setString(3, g.getPrenomEmploye());
-			ps.setString(4, g.getEmailEmploye());
-			ps.setString(5, g.getLoginEmploye()); 
-			ps.setString(6, g.getMotDePasse()); 
-			ps.setInt(7, g.getIdEmploye());
-			
-			ps.executeUpdate();
-			
-			ps.close();
-			conn.close();
-			
-		} catch (Exception e) {
-		}		
-	}
 	
 	@Override
 	public Employe lireEmploye(int idEmploye) {
@@ -364,7 +395,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
  */
 	
 	@Override
-	public void creerClientParticulier(ClientParticulier cltParticulier) {
+	public void creerClientParticulier(Client clt) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -373,16 +404,17 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			String mdp = "";
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+	
 			
-			String requete = "INSERT INTO client(idClient, nomClient, prenomClient, emailClient, idClientParticulier) VALUES (?, ?, ?, ?, ?)";
+			String requete = "UPDATE `client` SET idClientParticulier=idClient WHERE `nomClient`=? AND `prenomClient`=? AND `emailClient`=?";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, cltParticulier.getIdClient());
-			ps.setString(2, cltParticulier.getNomClient()); 
-			ps.setString(3, cltParticulier.getPrenomClient());
-			ps.setString(4, cltParticulier.getEmailClient());	
-			ps.setInt(5, cltParticulier.getIdClient());
+			
+			ps.setString(1, clt.getNomClient()); 
+			ps.setString(2, clt.getPrenomClient());
+			ps.setString(3, clt.getEmailClient());	
+			
 
 			ps.executeUpdate();
 
@@ -394,7 +426,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 		
 	}
 	@Override
-	public void creerClientEntreprise(ClientEntreprise cltEntreprise) {
+	public void creerClientEntreprise(Client clt) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -404,15 +436,15 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO client(idClient, nomClient, prenomClient, emailClient, idClientEntreprise) VALUES (?, ?, ?, ?, ?)";
+			String requete = "UPDATE `client` SET idClientEntreprise=idClient WHERE `nomClient`=? AND `prenomClient`=? AND `emailClient`=?";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, cltEntreprise.getIdClient());
-			ps.setString(2, cltEntreprise.getNomClient()); 
-			ps.setString(3, cltEntreprise.getPrenomClient());
-			ps.setString(4, cltEntreprise.getEmailClient());	
-			ps.setInt(5, cltEntreprise.getIdClient());
+		
+			ps.setString(1, clt.getNomClient()); 
+			ps.setString(2, clt.getPrenomClient());
+			ps.setString(3, clt.getEmailClient());	
+			
 			ps.executeUpdate();
 			
 			ps.close();
@@ -425,6 +457,41 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 	}
 	
 	@Override
+	public void creerClient(Client clt) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+			
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+	
+			
+			String requete = "INSERT INTO client(nomClient, prenomClient, emailClient, telClient, adresseClient, codePostal, ville) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			
+			PreparedStatement ps = conn.prepareStatement(requete);
+			
+			
+			ps.setString(1, clt.getNomClient()); 
+			ps.setString(2, clt.getPrenomClient());
+			ps.setString(3, clt.getEmailClient());	
+			ps.setString(4, clt.getTelClient());
+			ps.setString(5, clt.getAdresseClient());
+			ps.setInt(6, clt.getCodePostal());
+			ps.setString(7, clt.getVille());
+
+			ps.executeUpdate();
+
+			ps.close();
+			conn.close();		
+			
+		} catch (Exception e) {
+		}		
+		
+	}
+	
+	@Override //avec entreprise problème
 	public Client lireClient(int idClient) {
 		ClientParticulier cltPart = new ClientParticulier();
 		ClientEntreprise cltEnt = new ClientEntreprise();
@@ -593,7 +660,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
  */
 	
 	@Override
-	public void creerCompteCourant(CompteCourant cptCourant) {
+	public void creerCompteCourant(CompteCourant cptCourant, Client c) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -603,13 +670,12 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO compte(idCompte, solde, idCompteCourant) VALUES (?, ?, ?)";
+			String requete = "UPDATE `compte` SET idCompteCourant=idCompte WHERE clientID=?";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, cptCourant.getIdCompte());
-			ps.setDouble(2, cptCourant.getSolde()); 
-			ps.setInt(3, cptCourant.getIdCompte());
+			
+			ps.setInt(1, c.getIdClient());
 			
 			ps.executeUpdate();
 			
@@ -621,7 +687,7 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 	}	
 	
 	@Override
-	public void creerCompteEpargne(CompteEpargne cptEpargne) {
+	public void creerCompteEpargne(CompteEpargne cptEpargne, Client c) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -631,13 +697,11 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 			
 			Connection conn = DriverManager.getConnection(adresse, login, mdp);
 			
-			String requete = "INSERT INTO compte(idCompte, solde, idCompteEpargne) VALUES (?, ?, ?)";
+			String requete = "UPDATE `compte` SET idCompteEpargne=idCompte WHERE clientID=?";
 			
 			PreparedStatement ps = conn.prepareStatement(requete);
 			
-			ps.setInt(1, cptEpargne.getIdCompte());
-			ps.setDouble(2, cptEpargne.getSolde()); 
-			ps.setInt(3, cptEpargne.getIdCompte());
+			ps.setInt(1, c.getIdClient());
 	
 			ps.executeUpdate();
 			
@@ -648,7 +712,33 @@ public int recupererIdClient(ClientParticulier cltParticulier) {
 		}		
 	}
 		
-	
+	@Override
+	public void creerCompte(Compte cpt, Client c) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String adresse = "jdbc:mysql://localhost:3306/proxibanque";
+			String login = "root";
+			String mdp = "";
+			
+			Connection conn = DriverManager.getConnection(adresse, login, mdp);
+			
+			String requete = "INSERT INTO compte(solde, clientID) VALUES (?,?)";
+			
+			PreparedStatement ps = conn.prepareStatement(requete);
+			
+		
+			ps.setDouble(1, cpt.getSolde()); 
+			ps.setInt(2, c.getIdClient()); 
+			
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+			
+		} catch (Exception e) {
+		}		
+	}
 
 	@Override
 	public Compte lireCompte(int idCompte) {

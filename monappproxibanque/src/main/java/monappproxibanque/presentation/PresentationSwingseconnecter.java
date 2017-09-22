@@ -32,6 +32,7 @@ public class PresentationSwingseconnecter extends JFrame {
 	private JLabel Login = new JLabel("Login");
 	private JLabel Motdepasse = new JLabel("Mot de passe");
 	
+	
 	private JTextField zonesaisielogin = new JTextField(10);
 	private JTextField zonesaisiemotdepasse = new JTextField(10);
 	
@@ -53,11 +54,15 @@ public class PresentationSwingseconnecter extends JFrame {
 				String log=zonesaisielogin.getText();
 				String mdp=zonesaisiemotdepasse.getText();
 				
-				if (ig.seConnecter(zonesaisielogin.getText(),zonesaisiemotdepasse.getText())==mdp+" "+log);
+				if (ig.seConnecter(zonesaisielogin.getText(),zonesaisiemotdepasse.getText())==true)
 				{
 					PresentationSwingAccueil f = new PresentationSwingAccueil() ;
 					f.setVisible(true);
 				}
+				else {
+				
+				System.out.println("erreur de login");
+				}	
 				
 			}});
 		

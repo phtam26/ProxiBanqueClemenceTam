@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import monappproxibanque.metier.ClientEntreprise;
 import monappproxibanque.metier.ClientParticulier;
 import monappproxibanque.service.IConseiller;
+import monappproxibanque.service.IGerant;
 import monappproxibanque.service.ServiceImpl;
 
 
@@ -26,12 +27,24 @@ public class PresentationSwingEntreprise extends JFrame {
 	private JPanel panel4 = new JPanel();
 	
 	//onglet ajouter
-	private JPanel panelId1 = new JPanel();
-	private JTextField zonesaisieid1 = new JTextField(10);
-	private JLabel id1 = new JLabel("Id");
+	
 	private JPanel panelnom = new JPanel();
 	private JPanel panelprenom = new JPanel();
 	private JPanel panelemail = new JPanel();
+	
+	private JPanel paneltel = new JPanel();
+	private JPanel paneladresse = new JPanel();
+	private JPanel panelcodepostal = new JPanel();
+	private JPanel panelville = new JPanel();
+	private JTextField zonesaisietel = new JTextField(10);
+	private JTextField zonesaisieadresse = new JTextField(10);
+	private JTextField zonesaisiecodepostal = new JTextField(10);
+	private JTextField zonesaisieville = new JTextField(10);
+	private JLabel tel = new JLabel("Teléphone");
+	private JLabel adresse = new JLabel("Adresse");
+	private JLabel codepostal = new JLabel("Code Postal");
+	private JLabel ville = new JLabel("Ville");
+	
 	private JPanel panelbouton1 = new JPanel();
 	private JButton valider1 = new JButton ("Valider");
 	private JTextField zonesaisieprenom = new JTextField(10);
@@ -80,7 +93,7 @@ public class PresentationSwingEntreprise extends JFrame {
 	private JButton valider4 = new JButton ("Valider");
 	
 	
-	IConseiller ic=new ServiceImpl();
+	IGerant ig=new ServiceImpl();
 	
 	//constructeur
 	public PresentationSwingEntreprise() {
@@ -108,10 +121,18 @@ public class PresentationSwingEntreprise extends JFrame {
 			zonesaisieprenom.setText("");
 			p.setEmailClient(zonesaisieemail.getText()); 
 			zonesaisieemail.setText("");
-			p.setIdClient(Integer.parseInt(zonesaisieid1.getText()));
-			zonesaisieid1.setText("");
+			p.setTelClient(zonesaisietel.getText()); 
+			zonesaisietel.setText("");
+			p.setAdresseClient(zonesaisieadresse.getText()); 
+			zonesaisieadresse.setText("");
+			p.setCodePostal(Integer.parseInt(zonesaisiecodepostal.getText())); 
+			zonesaisiecodepostal.setText("");
+			p.setVille(zonesaisieville.getText()); 
+			zonesaisieville.setText("");
+			
 			//
-			ic.creerClientEntreprise(p);
+			ig.creerClient(p);
+			ig.creerClientEntreprise(p);
 		
 		}});
 	
@@ -123,7 +144,7 @@ public class PresentationSwingEntreprise extends JFrame {
 			// TODO Auto-generated method stub
 			ClientEntreprise p = new ClientEntreprise();
 			int id =Integer.parseInt(zonesaisieid.getText());
-			p=(ClientEntreprise)ic.lireClient(id);
+			p=(ClientEntreprise)ig.lireClient(id);
 			texteclient.setText(p.toString());
 			
 		
@@ -136,7 +157,7 @@ public class PresentationSwingEntreprise extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			ClientEntreprise p = new ClientEntreprise();
-			int id;
+			
 			
 			p.setIdClient(Integer.parseInt(zonesaisieid3.getText()));
 			zonesaisieid3.setText("");
@@ -145,7 +166,7 @@ public class PresentationSwingEntreprise extends JFrame {
 			p.setPrenomClient(zonesaisieprenom3.getText());
 			zonesaisieprenom3.setText("");
 			
-			ic.modifierClient(p);
+			ig.modifierClient(p);
 		
 		}});
 	
@@ -157,15 +178,14 @@ public class PresentationSwingEntreprise extends JFrame {
 			// TODO Auto-generated method stub
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
-			
-			ic.supprimerClient(id);
+			zonesaisieid4.setText("");
+			ig.supprimerClient(id);
 		
 		}});
 	
 	
 	//onglet ajouter
-	panelId1.add(id1);
-	panelId1.add(zonesaisieid1);
+	
 	panelnom.add(nom);
 	panelnom.add(zonesaisienom);
 	
@@ -175,13 +195,30 @@ public class PresentationSwingEntreprise extends JFrame {
 	panelemail.add(email);
 	panelemail.add(zonesaisieemail);
 	
+	paneltel.add(tel);
+	paneltel.add(zonesaisietel);
+	
+	paneladresse.add(adresse);
+	paneladresse.add(zonesaisieadresse);
+	
+	panelcodepostal.add(codepostal);
+	panelcodepostal.add(zonesaisiecodepostal);
+	
+	panelville.add(ville);
+	panelville.add(zonesaisieville);
+	
 	panelbouton1.add(valider1);
 	
 	panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-	panel1.add(panelId1);
+
 	panel1.add(panelnom);
 	panel1.add(panelprenom);
 	panel1.add(panelemail);
+	panel1.add(paneltel);
+	panel1.add(paneladresse);
+	panel1.add(panelcodepostal);
+	panel1.add(panelville);
+	
 	panel1.add(panelbouton1);
 	
 	

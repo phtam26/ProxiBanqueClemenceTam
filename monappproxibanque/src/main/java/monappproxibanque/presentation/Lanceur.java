@@ -11,8 +11,10 @@ public class Lanceur {
 		
 		f.setVisible(true);
 		
+	
 		
 		
 	}
+	
 
 }

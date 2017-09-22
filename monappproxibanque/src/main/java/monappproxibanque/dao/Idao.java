@@ -24,26 +24,30 @@ import monappproxibanque.metier.Gerant;
 
 public interface Idao {
 	
-	public String seConnecter(String loginEmploye, String motDePasse);
+	public boolean seConnecter(String loginEmploye, String motDePasse);
 	
-	public void creerConseiller(Conseiller csl);
+	public void creerEmploye(Employe e);
+	public void creerConseiller(Conseiller p);
 	public void creerGerant(Gerant g);
+	
 	public Employe lireEmploye(int idEmploye);
 	public void modifierEmploye(Employe epl);
 	public void supprimerEmploye(int idEmploye);
 	public List<Employe> findAllEmployes();
 	
-	public void creerClientParticulier(ClientParticulier cltParticulier);
+	public void creerClient(Client clt);
+	public void creerClientParticulier(Client clt);
 //	public int recupererIdClient(ClientParticulier cltParticulier);
 //	public void updateIdClientParticulier(int id);
-	public void creerClientEntreprise(ClientEntreprise cltEntreprise);
+	public void creerClientEntreprise(Client clt);
 	public Client lireClient(int idClient);
 	public void modifierClient(Client clt);
 	public void supprimerClient(int idClient);	
 	public List<Client> findAllClients();
 	
-	public void creerCompteCourant(CompteCourant cptCourant);
-	public void creerCompteEpargne(CompteEpargne cptEpargne);
+	public void creerCompte(Compte cpt, Client c);
+	public void creerCompteCourant(CompteCourant cptCourant, Client c);
+	public void creerCompteEpargne(CompteEpargne cptEpargne, Client c);
 	public Compte lireCompte(int idCompte);
 	public void modifierCompte(Compte cpt);
 	public void supprimerCompte(int idCompte);

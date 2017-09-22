@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import monappproxibanque.metier.ClientParticulier;
 import monappproxibanque.service.IConseiller;
+import monappproxibanque.service.IGerant;
 import monappproxibanque.service.ServiceImpl;
 
 
@@ -25,19 +26,30 @@ public class PresentationSwingParticulier extends JFrame {
 	private JPanel panel4 = new JPanel();
 	
 	//onglet ajouter
-	private JPanel panelId1 = new JPanel();
+	
 	private JPanel panelnom = new JPanel();
 	private JPanel panelprenom = new JPanel();
 	private JPanel panelemail = new JPanel();
 	private JPanel panelbouton1 = new JPanel();
-	
+	private JPanel paneltel = new JPanel();
+	private JPanel paneladresse = new JPanel();
+	private JPanel panelcodepostal = new JPanel();
+	private JPanel panelville = new JPanel();
+	private JTextField zonesaisietel = new JTextField(10);
+	private JTextField zonesaisieadresse = new JTextField(10);
+	private JTextField zonesaisiecodepostal = new JTextField(10);
+	private JTextField zonesaisieville = new JTextField(10);
+	private JLabel tel = new JLabel("Teléphone");
+	private JLabel adresse = new JLabel("Adresse");
+	private JLabel codepostal = new JLabel("Code Postal");
+	private JLabel ville = new JLabel("Ville");
 	
 	private JButton valider1 = new JButton ("Valider");
-	private JTextField zonesaisieid1 = new JTextField(10);
+	
 	private JTextField zonesaisieprenom = new JTextField(10);
 	private JTextField zonesaisienom = new JTextField(10);
 	private JTextField zonesaisieemail = new JTextField(10);
-	private JLabel id1 = new JLabel("Id");
+	
 	private JLabel nom = new JLabel("Nom");
 	private JLabel prenom = new JLabel("Prenom");
 	private JLabel email = new JLabel("Email");
@@ -81,7 +93,7 @@ public class PresentationSwingParticulier extends JFrame {
 	private JButton valider4 = new JButton ("Valider");
 	
 	
-	IConseiller ic=new ServiceImpl();
+	IGerant ig=new ServiceImpl();
 	
 	//constructeur
 	public PresentationSwingParticulier() {
@@ -104,17 +116,26 @@ public class PresentationSwingParticulier extends JFrame {
 			// TODO Auto-generated method stub
 			ClientParticulier p = new ClientParticulier();
 			p.setNomClient(zonesaisienom.getText());
-			
-			p.setPrenomClient(zonesaisieprenom.getText());
-
-			p.setEmailClient(zonesaisieemail.getText()); 
-			
-			p.setIdClient(Integer.parseInt(zonesaisieid1.getText()));
-			ic.creerClientParticulier(p);
 			zonesaisienom.setText("");
+			p.setPrenomClient(zonesaisieprenom.getText());
 			zonesaisieprenom.setText("");
+			p.setEmailClient(zonesaisieemail.getText()); 
 			zonesaisieemail.setText("");
-			zonesaisieid1.setText("");
+			p.setTelClient(zonesaisietel.getText()); 
+			zonesaisietel.setText("");
+			p.setAdresseClient(zonesaisieadresse.getText()); 
+			zonesaisieadresse.setText("");
+			p.setCodePostal(Integer.parseInt(zonesaisiecodepostal.getText())); 
+			zonesaisiecodepostal.setText("");
+			p.setVille(zonesaisieville.getText()); 
+			zonesaisieville.setText("");
+			
+			ig.creerClient(p);
+			ig.creerClientParticulier(p);
+			
+			
+			
+			
 			
 		}});
 	
@@ -126,7 +147,7 @@ public class PresentationSwingParticulier extends JFrame {
 			// TODO Auto-generated method stub
 			int id =Integer.parseInt(zonesaisieid.getText());
 			ClientParticulier p = new ClientParticulier();
-			p=(ClientParticulier)ic.lireClient(id);
+			p=(ClientParticulier)ig.lireClient(id);
 			texteclient.setText(p.toString());
 		
 		}});
@@ -147,7 +168,7 @@ public class PresentationSwingParticulier extends JFrame {
 			p.setPrenomClient(zonesaisieprenom3.getText());
 			zonesaisieprenom3.setText("");
 			
-			ic.modifierClient(p);
+			ig.modifierClient(p);
 		
 		}});
 	
@@ -160,14 +181,13 @@ public class PresentationSwingParticulier extends JFrame {
 			int id;
 			id=(Integer.parseInt(zonesaisieid4.getText()));
 			zonesaisieid4.setText("");
-			ic.supprimerClient(id);
+			ig.supprimerClient(id);
 		
 		}});
 	
 	
 	//onglet ajouter
-	panelId1.add(id1);
-	panelId1.add(zonesaisieid1);
+	
 	
 	panelnom.add(nom);
 	panelnom.add(zonesaisienom);
@@ -178,13 +198,29 @@ public class PresentationSwingParticulier extends JFrame {
 	panelemail.add(email);
 	panelemail.add(zonesaisieemail);
 	
+	paneltel.add(tel);
+	paneltel.add(zonesaisietel);
+	
+	paneladresse.add(adresse);
+	paneladresse.add(zonesaisieadresse);
+	
+	panelcodepostal.add(codepostal);
+	panelcodepostal.add(zonesaisiecodepostal);
+	
+	panelville.add(ville);
+	panelville.add(zonesaisieville);
+	
 	panelbouton1.add(valider1);
 	
 	panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-	panel1.add(panelId1);
+	
 	panel1.add(panelnom);
 	panel1.add(panelprenom);
 	panel1.add(panelemail);
+	panel1.add(paneltel);
+	panel1.add(paneladresse);
+	panel1.add(panelcodepostal);
+	panel1.add(panelville);
 	panel1.add(panelbouton1);
 	
 	

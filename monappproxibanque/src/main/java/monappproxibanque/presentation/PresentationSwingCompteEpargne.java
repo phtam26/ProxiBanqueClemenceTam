@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import monappproxibanque.metier.ClientParticulier;
 import monappproxibanque.metier.CompteCourant;
 import monappproxibanque.metier.CompteEpargne;
 import monappproxibanque.metier.Conseiller;
@@ -29,7 +30,7 @@ public class PresentationSwingCompteEpargne extends JFrame{
 	//onglet ajouter
 	private JPanel panelId1 = new JPanel();
 	private JTextField zonesaisieid1 = new JTextField(10);
-	private JLabel id1 = new JLabel("Id");
+	private JLabel id1 = new JLabel("Id du client");
 	private JPanel panelsolde = new JPanel();
 	private JPanel paneldatedouverture = new JPanel();
 	
@@ -40,8 +41,8 @@ public class PresentationSwingCompteEpargne extends JFrame{
 	
 	private JLabel solde = new JLabel("Solde");
 	private JLabel datedouverture = new JLabel("Date d'ouverture du compte AAAA-MM-JJ");
-	
-	
+
+
 	//onglet lire
 	private JPanel panelId = new JPanel();
 	private JPanel panelbouton2 = new JPanel();
@@ -104,13 +105,15 @@ public class PresentationSwingCompteEpargne extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				CompteEpargne p = new CompteEpargne();
+				ClientParticulier c = new ClientParticulier();
 				//SimpleDateFormat formatter = new SimpleDateFormat("AAAA-MM-JJ");
 				p.setSolde(Integer.parseInt(zonesaisiesolde.getText()));
 				zonesaisiesolde.setText("");
-				p.setIdCompte(Integer.parseInt(zonesaisieid1.getText()));
+				c.setIdClient(Integer.parseInt(zonesaisieid1.getText()));
 				zonesaisieid1.setText("");
-					
-				ig.creerCompteEpargne(p);
+				
+				ig.creerCompte(p,c);
+				ig.creerCompteEpargne(p,c);
 			
 			}});
 		
@@ -139,7 +142,9 @@ public class PresentationSwingCompteEpargne extends JFrame{
 				
 				
 				//SimpleDateFormat formatter = new SimpleDateFormat("AAAA-MM-JJ");
-				p.setIdCompte(Integer.parseInt(zonesaisiesolde3.getText()));
+				p.setIdCompte(Integer.parseInt(zonesaisieid3.getText()));
+				p.setSolde(Integer.parseInt(zonesaisiesolde3.getText()));
+				zonesaisieid3.setText("");
 				zonesaisiesolde3.setText("");
 				
 					
@@ -155,7 +160,7 @@ public class PresentationSwingCompteEpargne extends JFrame{
 				// TODO Auto-generated method stub
 				int id;
 				id=(Integer.parseInt(zonesaisieid4.getText()));
-				
+				zonesaisieid4.setText("");
 				ig.supprimerCompte(id);
 			
 			}});

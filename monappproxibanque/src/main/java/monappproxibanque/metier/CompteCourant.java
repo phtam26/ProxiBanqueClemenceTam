@@ -6,7 +6,7 @@ package monappproxibanque.metier;
  */
 public class CompteCourant extends Compte {
 
-	private final double decouvert = 1000;
+	private double decouvert = 1000;
 
 	public double getDecouvert() {
 		return decouvert;

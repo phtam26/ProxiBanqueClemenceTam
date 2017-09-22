@@ -20,9 +20,9 @@ public class ServiceImpl implements IConseiller , IGerant {
 	private Idao dao = new Dao();
 
 	@Override
-	public void creerConseiller(Conseiller csl) {
+	public void creerEmploye(Employe e) {
 		// TODO Auto-generated method stub
-		dao.creerConseiller(csl);
+		dao.creerEmploye(e);
 	}
 
 	@Override
@@ -110,15 +110,15 @@ public class ServiceImpl implements IConseiller , IGerant {
 	}
 
 	@Override
-	public void creerCompteCourant(CompteCourant cptCourant) {
+	public void creerCompteCourant(CompteCourant cptCourant, Client c) {
 		// TODO Auto-generated method stub
-	dao.creerCompteCourant(cptCourant);	
+	dao.creerCompteCourant(cptCourant, c);	
 	}
 
 	@Override
-	public void creerCompteEpargne(CompteEpargne cptEpargne) {
+	public void creerCompteEpargne(CompteEpargne cptEpargne, Client c) {
 		// TODO Auto-generated method stub
-		dao.creerCompteEpargne(cptEpargne);
+		dao.creerCompteEpargne(cptEpargne, c);
 	}
 
 	@Override
@@ -141,8 +141,26 @@ public class ServiceImpl implements IConseiller , IGerant {
 
 
 	@Override
-	public String seConnecter(String loginEmploye, String motDePasse) {
+	public boolean seConnecter(String loginEmploye, String motDePasse) {
 		return dao.seConnecter(loginEmploye, motDePasse);
+	}
+
+	@Override
+	public void creerConseiller(Conseiller p) {
+		// TODO Auto-generated method stub
+		dao.creerConseiller(p);
+	}
+
+	@Override
+	public void creerClient(Client clt) {
+		// TODO Auto-generated method stub
+		dao.creerClient(clt);
+	}
+
+	@Override
+	public void creerCompte(Compte cpt, Client c) {
+		// TODO Auto-generated method stub
+		dao.creerCompte(cpt, c);
 	}
 
 	

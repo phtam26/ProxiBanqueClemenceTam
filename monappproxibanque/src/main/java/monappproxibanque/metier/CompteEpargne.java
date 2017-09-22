@@ -6,7 +6,7 @@ package monappproxibanque.metier;
  */
 public class CompteEpargne extends Compte {
 
-	private final double taux = 0.03;
+	private double taux = 0.03;
 
 	public double getTaux() {
 		return taux;
